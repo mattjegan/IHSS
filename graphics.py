@@ -4,11 +4,11 @@ import sys
 
 from constants import *
 
-def draw(screen):
+def draw(screen, statsArr):
     drawBG(screen)
     ##drawHeader(screen)
-    drawGrid(screen)
-    drawStats(screen)
+    drawGrid(screen, statsArr)
+    drawStats(screen, statsArr)
 
 def drawBG(screen):
     screen.fill(BLUE)
@@ -16,22 +16,31 @@ def drawBG(screen):
 def drawHeader(screen):
     pass
 
-def drawGrid(screen):
+def drawGrid(screen, statsArr):
 
-    maxPlayer = 15
-    boxHeight = (SCREEN_HEIGHT-HEAD_PADDING-FOOT_PADDING)/maxPlayer
+    maxRows = len(statsArr)
+    boxHeight = (SCREEN_HEIGHT-HEAD_PADDING-FOOT_PADDING)/maxRows
 
-    for i in xrange(0, maxPlayer):
+    for i in xrange(0, maxRows):
         pygame.draw.rect(screen, BLACK, (40, HEAD_PADDING + boxHeight * i, 1200, boxHeight), 5)
 
-def drawStats(screen):
+def drawStats(screen, statsArr):
 
-    maxPlayer = 15
-    boxHeight = (SCREEN_HEIGHT-HEAD_PADDING-FOOT_PADDING)/maxPlayer
+    maxRows = len(statsArr)
+    boxHeight = (SCREEN_HEIGHT-HEAD_PADDING-FOOT_PADDING)/maxRows
     textPosTop = boxHeight/4
 
-    for i in xrange(0, maxPlayer):
-        writeText(screen, WHITE, "Matthew", (50, HEAD_PADDING + textPosTop + boxHeight * i), 45)
+    # Display name column
+    for row in xrange(0, maxRows):
+        writeText(screen, WHITE, str(statsArr[row][0]), (50, HEAD_PADDING + textPosTop + boxHeight * row), 45)
+
+    # Display team column
+    for row in xrange(0, maxRows):
+        writeText(screen, WHITE, str(statsArr[row][1]), (250, HEAD_PADDING + textPosTop + boxHeight * row), 45)
+
+    # Display score column
+    for row in xrange(0, maxRows):
+        writeText(screen, WHITE, str(statsArr[row][2]), (550, HEAD_PADDING + textPosTop + boxHeight * row), 45)
 
 ## Displays plain text on screen
 ## Used for debugging purposes only

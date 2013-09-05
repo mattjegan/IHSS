@@ -18,9 +18,10 @@ def main():
                 running = False
 
         # Calculate stats
+        statsArr = processing.organiseXL2Array('scores.xls')
 
         # Display graphics
-        graphics.draw(screen)
+        graphics.draw(screen, statsArr)
 
         pygame.display.update()
 
