@@ -30,17 +30,10 @@ def drawStats(screen, statsArr):
     boxHeight = (SCREEN_HEIGHT-HEAD_PADDING-FOOT_PADDING)/maxRows
     textPosTop = boxHeight/4
 
-    # Display name column
-    for row in xrange(0, maxRows):
-        writeText(screen, WHITE, str(statsArr[row][0]), (50, HEAD_PADDING + textPosTop + boxHeight * row), 45)
-
-    # Display team column
-    for row in xrange(0, maxRows):
-        writeText(screen, WHITE, str(statsArr[row][1]), (250, HEAD_PADDING + textPosTop + boxHeight * row), 45)
-
-    # Display score column
-    for row in xrange(0, maxRows):
-        writeText(screen, WHITE, str(statsArr[row][2]), (550, HEAD_PADDING + textPosTop + boxHeight * row), 45)
+    for col in xrange(0, len(statsArr[0])):
+        # Display data
+        for row in xrange(0, maxRows):
+            writeText(screen, WHITE, str(statsArr[row][col]), ((200*col) + 50, HEAD_PADDING + textPosTop + boxHeight * row), 45)
 
 ## Displays plain text on screen
 ## Used for debugging purposes only
