@@ -28,8 +28,8 @@ def drawStats(screen, statsArr):
 
     maxRows = len(statsArr)
     boxHeight = (SCREEN_HEIGHT-HEAD_PADDING-FOOT_PADDING)/maxRows
-    textPosTop = boxHeight/4
-    textSize = int(boxHeight*0.5)
+    textSize = int(boxHeight/2)
+    textPosTop = GRID_BORDER + (boxHeight-textSize)/2
 
     for col in xrange(0, len(statsArr[0])):
         # Display data
