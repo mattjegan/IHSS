@@ -18,7 +18,11 @@ def drawHeader(screen):
 
 def drawGrid(screen, statsArr):
 
-    maxRows = len(statsArr)
+    if len(statsArr) > MAXPLAYERS:
+        maxRows = MAXPLAYERS
+    else:
+        maxRows = len(statsArr)
+        
     boxHeight = (SCREEN_HEIGHT-HEAD_PADDING-FOOT_PADDING)/maxRows
 
     for i in xrange(0, maxRows):
@@ -26,7 +30,11 @@ def drawGrid(screen, statsArr):
 
 def drawStats(screen, statsArr):
 
-    maxRows = len(statsArr)
+    if len(statsArr) > MAXPLAYERS:
+        maxRows = MAXPLAYERS
+    else:
+        maxRows = len(statsArr)
+
     boxHeight = (SCREEN_HEIGHT-HEAD_PADDING-FOOT_PADDING)/maxRows
     textSize = int(boxHeight/2)
     textPosTop = GRID_BORDER + (boxHeight-textSize)/2
