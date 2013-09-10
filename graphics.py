@@ -22,7 +22,7 @@ def drawGrid(screen, statsArr):
         maxRows = MAXPLAYERS
     else:
         maxRows = len(statsArr)
-        
+
     boxHeight = (SCREEN_HEIGHT-HEAD_PADDING-FOOT_PADDING)/maxRows
 
     for i in xrange(0, maxRows):
@@ -37,7 +37,7 @@ def drawStats(screen, statsArr):
 
     boxHeight = (SCREEN_HEIGHT-HEAD_PADDING-FOOT_PADDING)/maxRows
     textSize = int(boxHeight/2)
-    textPosTop = GRID_BORDER + (boxHeight-textSize)/2
+    textPosTop = 5 + (boxHeight-textSize)/2
 
     for col in xrange(0, len(statsArr[0])):
         # Display data
