@@ -2,10 +2,6 @@ from Tkinter import *
 import ttk
 
 class Application(Frame):
-    ## Button Actions
-    def say_hi(self):
-        print "hi there, everyone!"
-
     def createWidgets(self):
         ## Create button
         self.QUIT = Button(self)
@@ -14,13 +10,6 @@ class Application(Frame):
         self.QUIT["command"] = self.quit
 
         self.QUIT.grid(row=0, column=0)
-
-        ## Create button
-        self.hi_there = Button(self)
-        self.hi_there["text"] = "Hello"
-        self.hi_there["command"] = self.say_hi
-        self.hi_there.grid(row=0, column=1, sticky='W')
-
 
         ## Team 1 Stuff ##
         self.team1Lab = Label(self)
@@ -47,7 +36,7 @@ class Application(Frame):
         self.team1assadd.grid(row=3, column=2)
         ## Assist Minus
         self.team1assmin = Button(self, width=5)
-        self.team1assmin["text"] = "+A"
+        self.team1assmin["text"] = "-A"
         self.team1assmin.grid(row=3, column=3)
         ## Saves Add
         self.team1saveadd = Button(self, width=5)
@@ -89,7 +78,7 @@ class Application(Frame):
         self.team2assadd.grid(row=3, column=5)
         ## Assist Minus
         self.team2assmin = Button(self, width=5)
-        self.team2assmin["text"] = "+A"
+        self.team2assmin["text"] = "-A"
         self.team2assmin.grid(row=3, column=6)
         ## Saves Add
         self.team2saveadd = Button(self, width=5)
