@@ -20,3 +20,5 @@ class Player():
         self.assists -= 1
     def getGoalieSavePercentage(self):
         return 100*(1-(self.misses/self.shotsOn))
+    def saveData(self):
+        return "-" + self.firstName + ";" + self.lastName + ";"  + str(self.number) + ";" + str(self.games) + ";" + str(self.goals) + ";" + str(self.assists) + ";" + str(int(self.isGoalie))

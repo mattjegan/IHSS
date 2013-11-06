@@ -21,7 +21,7 @@ class Application(Frame):
         self.teamList.append(team)
 
     def loadData(self):
-        dataFile = open("teamData.txt")
+        dataFile = open("teamData.txt", "rU")
         dataArray = [line for line in dataFile]
         dataFile.close()
 
@@ -48,13 +48,26 @@ class Application(Frame):
         for team in teams:
             self.addTeam(team)
 
+    def saveData(self):
+        teamData = []
+        for team in self.teamList:
+            teamData.append(team.teamName)
+            for player in team.players:
+                teamData.append(player.saveData())
+
+        print teamData
+        self.quit()
+        dataFile = open("teamData.txt", "w")
+        for item in teamData:
+            dataFile.write(item + "\n")
+        dataFile.close()
+
     def createWidgets(self):
         ## Create button
         self.QUIT = Button(self)
         self.QUIT["text"] = "QUIT"
         self.QUIT["fg"] = "red"
-        self.QUIT["command"] = self.quit
-
+        self.QUIT["command"] = self.saveData
         self.QUIT.grid(row=0, column=0)
 
         ## Team 1 Stuff ##
