@@ -191,7 +191,7 @@ class Application(Frame):
 
         ## MISC
         group = Frame(self)
-        group.grid(row=5, column=0, columnspan=7)
+        group.grid(row=6, column=0, columnspan=7)
 
         sep = Frame(group, height=2, width=500, borderwidth=1, relief=SUNKEN)
         sep.grid(row=0, columnspan=3)
