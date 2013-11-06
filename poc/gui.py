@@ -32,7 +32,6 @@ class Application(Frame):
             if str(item)[0] != '-':
                 currentTeam += 1
                 newTeam = teamClass.Team(str(item).strip())
-                #print "team: ", newTeam.teamName
                 teams.append(newTeam)
             else:
                 # (self, firstName, lastName, number, isGoalie=False)
@@ -43,13 +42,11 @@ class Application(Frame):
                 else:
                     playerData[3] = True
                 newPlayer = playerClass.Player(playerData[0], playerData[1], int(playerData[2]), playerData[3])
-                #print "player: ", newPlayer.firstName
                 # Assign to team
                 teams[currentTeam].addPlayer(newPlayer)
 
         for team in teams:
             self.addTeam(team)
-        #print "Data loaded"
 
     def createWidgets(self):
         ## Create button
@@ -172,8 +169,6 @@ class Application(Frame):
         for i in [player.firstName for player in self.team1.players]:
             self.team1list.insert(END, i)
 
-        print changedTo
-
     def _updatecb2(self, evt):
         changedTo = evt.widget.get()
 
@@ -184,8 +179,6 @@ class Application(Frame):
         self.team2list.delete(0, END)
         for i in [player.firstName for player in self.team2.players]:
             self.team2list.insert(END, i)
-
-        print changedTo
 
 def main():
     root = Tk()
