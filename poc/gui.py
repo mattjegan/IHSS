@@ -39,7 +39,7 @@ class Application(Frame):
                 # (self, firstName, lastName, number, isGoalie=False)
                 playerData = [part for part in item.strip().split(';')]
                 playerData[0] = playerData[0][1:]
-                if playerData[6] == 0:
+                if int(playerData[6]) == 0:
                     playerData[6] = False
                 else:
                     playerData[6] = True

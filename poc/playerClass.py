@@ -30,6 +30,6 @@ class Player():
         return 100*(1-(self.misses/self.shotsOn))
     def saveData(self):
         if self.isGoalie == False:
-            return "-" + self.firstName + ";" + self.lastName + ";"  + str(self.number) + ";" + str(self.games) + ";" + str(self.goals) + ";" + str(self.assists) + ";" + str(int(self.isGoalie))
+            return "-" + self.firstName + ";" + self.lastName + ";"  + str(self.number) + ";" + str(self.games) + ";" + str(self.goals) + ";" + str(self.assists) + ";" + str(0)
         elif self.isGoalie == True:
-            return "-" + self.firstName + ";" + self.lastName + ";"  + str(self.number) + ";" + str(self.games) + ";" + str(self.shotsOn) + ";" + str(self.misses) + ";" + str(int(self.isGoalie))
+            return "-" + self.firstName + ";" + self.lastName + ";"  + str(self.number) + ";" + str(self.games) + ";" + str(self.shotsOn) + ";" + str(self.misses) + ";" + str(1)
