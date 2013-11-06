@@ -15,6 +15,8 @@ class Application(Frame):
             self.teamNames.append(team.teamName)
         self.team1 = self.teamList[0]
         self.team2 = self.teamList[1]
+        self.team1score = 0
+        self.team2score = 0
         self.createWidgets()
 
     def addTeam(self, team):
@@ -175,17 +177,17 @@ class Application(Frame):
         sep = Frame(group, height=2, width=500, borderwidth=1, relief=SUNKEN)
         sep.grid(row=0, columnspan=3)
 
-        score1 = Label(group)
-        score1["text"] = "1"
-        score1.grid(row=1, column=0)
+        self.score1 = Label(group)
+        self.score1["text"] = str(self.team1score)
+        self.score1.grid(row=1, column=0)
 
         score = Label(group)
         score["text"] = "v"
         score.grid(row=1, column=1)
         
-        score2 = Label(group)
-        score2["text"] = "1"
-        score2.grid(row=1, column=2)
+        self.score2 = Label(group)
+        self.score2["text"] = str(self.team2score)
+        self.score2.grid(row=1, column=2)
 
     def _updatecb1(self, evt):
         changedTo = evt.widget.get()
@@ -210,18 +212,26 @@ class Application(Frame):
             self.team2list.insert(END, i)
 
     def team1goalUp(self):
+        self.team1score += 1
+        self.score1["text"] = str(self.team1score)
         playerIndex = self.team1list.curselection()[0]
         self.team1.players[int(playerIndex)].addGoal()
 
     def team1goalDown(self):
+        self.team1score -= 1
+        self.score1["text"] = str(self.team1score)
         playerIndex = self.team1list.curselection()[0]
         self.team1.players[int(playerIndex)].subGoal()
 
     def team2goalUp(self):
+        self.team2score += 1
+        self.score2["text"] = str(self.team2score)
         playerIndex = self.team2list.curselection()[0]
         self.team2.players[int(playerIndex)].addGoal()
 
     def team2goalDown(self):
+        self.team2score -= 1
+        self.score2["text"] = str(self.team2score)
         playerIndex = self.team2list.curselection()[0]
         self.team2.players[int(playerIndex)].subGoal()
 
