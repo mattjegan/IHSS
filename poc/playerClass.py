@@ -18,6 +18,10 @@ class Player():
         self.assists += 1
     def subAssist(self):
         self.assists -= 1
+    def addShotsOn(self):
+        self.shotsOn += 1
+    def subShotsOn(self):
+        self.shotsOn -= 1
     def getGoalieSavePercentage(self):
         return 100*(1-(self.misses/self.shotsOn))
     def saveData(self):
