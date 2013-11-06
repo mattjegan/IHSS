@@ -61,7 +61,7 @@ class Application(Frame):
         ## Create combobox
         self.combo2 = ttk.Combobox(self)
         self.combo2.bind("<<ComboboxSelected>>", self._update)
-        self.combo2["values"] = (1, 2, 3)
+        self.combo2["values"] = (1, 2, 3) # EDIT: Team.player array
         self.combo2.grid(row=1, column=4)
 
         ## Goal Add
