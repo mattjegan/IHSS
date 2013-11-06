@@ -1,7 +1,8 @@
 import math
 
 class Team():
-    def __init__(self):
+    def __init__(self, teamName):
+        self.teamName = teamName
         self.players = []
         self.totalGoals = 0
         self.totalGoalsAgainst = 0

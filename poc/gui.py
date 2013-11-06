@@ -1,7 +1,56 @@
 from Tkinter import *
 import ttk
 
+import teamClass
+import playerClass
+
 class Application(Frame):
+    def __init__(self, master=None):
+        Frame.__init__(self, master)
+        self.teamList = []
+        self.pack()
+        self.loadData()
+        self.teamNames = []
+        for team in self.teamList:
+            self.teamNames.append(team.teamName)
+        self.team1 = self.teamList[0]
+        self.team2 = self.teamList[1]
+        self.createWidgets()
+
+    def addTeam(self, team):
+        self.teamList.append(team)
+
+    def loadData(self):
+        dataFile = open("teamData.txt")
+        dataArray = [line for line in dataFile]
+        dataFile.close()
+
+        teams = []
+        currentTeam = -1
+
+        for item in dataArray:
+            if str(item)[0] != '-':
+                currentTeam += 1
+                newTeam = teamClass.Team(str(item).strip())
+                #print "team: ", newTeam.teamName
+                teams.append(newTeam)
+            else:
+                # (self, firstName, lastName, number, isGoalie=False)
+                playerData = [part for part in item.strip().split(';')]
+                playerData[0] = playerData[0][1:]
+                if playerData[3] == 0:
+                    playerData[3] = False
+                else:
+                    playerData[3] = True
+                newPlayer = playerClass.Player(playerData[0], playerData[1], int(playerData[2]), playerData[3])
+                #print "player: ", newPlayer.firstName
+                # Assign to team
+                teams[currentTeam].addPlayer(newPlayer)
+
+        for team in teams:
+            self.addTeam(team)
+        #print "Data loaded"
+
     def createWidgets(self):
         ## Create button
         self.QUIT = Button(self)
@@ -18,8 +67,9 @@ class Application(Frame):
 
         ## Create combobox
         self.combo = ttk.Combobox(self)
-        self.combo.bind("<<ComboboxSelected>>", self._update)
-        self.combo["values"] = (1, 2, 3)
+        self.combo.bind("<<ComboboxSelected>>", self._updatecb1)
+        self.combo["values"] = (self.teamNames)
+        self.combo.current(0)
         self.combo.grid(row=1, column=1)
 
         ## Goal Add
@@ -49,8 +99,7 @@ class Application(Frame):
 
         ## Create player list
         self.team1list = Listbox(self)
-        for i in [1, 2, 3]:
-            self.team1list.insert(END, i)
+        self.team1list.bind("<<ListboxSelect>>", self._updatelb1)
         self.team1list.grid(row=2, column=1, rowspan=3, sticky=W+E+N+S)
 
         ## Team 2 Stuff ##
@@ -60,8 +109,9 @@ class Application(Frame):
 
         ## Create combobox
         self.combo2 = ttk.Combobox(self)
-        self.combo2.bind("<<ComboboxSelected>>", self._update)
-        self.combo2["values"] = (1, 2, 3) # EDIT: Team.player array
+        self.combo2.bind("<<ComboboxSelected>>", self._updatecb2)
+        self.combo2["values"] = (self.teamNames)
+        self.combo2.current(1)
         self.combo2.grid(row=1, column=4)
 
         ## Goal Add
@@ -91,8 +141,7 @@ class Application(Frame):
 
         ## Create player list
         self.team2list = Listbox(self)
-        for i in [1, 2, 3]:
-            self.team2list.insert(END, i)
+        self.team2list.bind("<<ListboxSelect>>", self._updatelb2)
         self.team2list.grid(row=2, column=4, rowspan=3, sticky=W+E+N+S)
 
         ## MISC
@@ -114,16 +163,38 @@ class Application(Frame):
         score2["text"] = "1"
         score2.grid(row=1, column=2)
 
+    def _updatecb1(self, evt):
+        changedTo = evt.widget.get()
 
-    def _update(self, evt):
-        print evt.widget.get()
+        for team in self.teamList:
+            if team.teamName == changedTo:
+                self.team1 = team
 
-    def __init__(self, master=None):
-        Frame.__init__(self, master)
-        self.pack()
-        self.createWidgets()
+        print changedTo
 
-root = Tk()
-app = Application(master=root)
-app.mainloop()
-root.destroy()
+    def _updatecb2(self, evt):
+        changedTo = evt.widget.get()
+
+        for team in self.teamList:
+            if team.teamName == changedTo:
+                self.team2 = team
+
+        print changedTo
+
+    def _updatelb1(self, evt):
+        evt.widget.delete(0, END)
+        for i in [player.firstName for player in self.team1.players]:
+            evt.widget.insert(END, i)
+
+    def _updatelb2(self, evt):
+        evt.widget.delete(0, END)
+        for i in [player.firstName for player in self.team2.players]:
+            evt.widget.insert(END, i)
+
+def main():
+    root = Tk()
+    app = Application(master=root)
+    app.mainloop()
+    root.destroy()
+
+if __name__ == "__main__": main()
