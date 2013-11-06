@@ -115,6 +115,8 @@ class Application(Frame):
 
         ## Create player list
         self.team1list = Listbox(self)
+        for i in (player.firstName for player in self.team1.players):
+            self.team1list.insert(END, i)
         self.team1list.grid(row=2, column=1, rowspan=3, sticky=W+E+N+S)
 
         ## Team 2 Stuff ##
@@ -162,6 +164,8 @@ class Application(Frame):
 
         ## Create player list
         self.team2list = Listbox(self)
+        for i in (player.firstName for player in self.team2.players):
+            self.team2list.insert(END, i)
         self.team2list.grid(row=2, column=4, rowspan=3, sticky=W+E+N+S)
 
         ## MISC
