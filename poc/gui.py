@@ -65,11 +65,11 @@ class Application(Frame):
 
     def createWidgets(self):
         ## Create button
-        self.QUIT = Button(self)
-        self.QUIT["text"] = "QUIT"
-        self.QUIT["fg"] = "red"
-        self.QUIT["command"] = self.saveData
-        self.QUIT.grid(row=0, column=0)
+        #self.QUIT = Button(self)
+        #self.QUIT["text"] = "QUIT"
+        #self.QUIT["fg"] = "red"
+        #self.QUIT["command"] = self.saveData
+        #self.QUIT.grid(row=0, column=0)
 
         ## Team 1 Stuff ##
         self.team1Lab = Label(self)
@@ -269,8 +269,9 @@ class Application(Frame):
 def main():
     root = Tk()
     root.title("Scorer")
-    root.overrideredirect(1)
+    #root.overrideredirect(1) #Uncomment to remove window borders
     app = Application(master=root)
+    root.protocol('WM_DELETE_WINDOW', app.saveData)
     app.mainloop()
     root.destroy()
 

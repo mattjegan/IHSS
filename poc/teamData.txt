@@ -6,4 +6,4 @@ Wolves
 Jokers
 -Bob;Bib;33;0;-4;0;1
 Silverbacks
--Bob;Bib;33;0;0;0;1
+-Bob;Bib;33;0;3;0;1
