@@ -57,7 +57,6 @@ class Application(Frame):
             for player in team.players:
                 teamData.append(player.saveData())
 
-        print teamData
         self.quit()
         dataFile = open("teamData.txt", "w")
         for item in teamData:
@@ -269,6 +268,8 @@ class Application(Frame):
 
 def main():
     root = Tk()
+    root.title("Scorer")
+    root.overrideredirect(1)
     app = Application(master=root)
     app.mainloop()
     root.destroy()
