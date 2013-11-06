@@ -113,6 +113,16 @@ class Application(Frame):
         self.team1savemin["text"] = "-S"
         self.team1savemin["command"] = self.team1ShotsOnDown
         self.team1savemin.grid(row=4, column=3, sticky=N)
+        ## Miss Add
+        self.team1missadd = Button(self, width=5)
+        self.team1missadd["text"] = "+M"
+        self.team1missadd["command"] = self.team1missesUp
+        self.team1missadd.grid(row=5, column=2, sticky=N)
+        ## Miss Minus
+        self.team1missmin = Button(self, width=5)
+        self.team1missmin["text"] = "-M"
+        self.team1missmin["command"] = self.team1missesDown
+        self.team1missmin.grid(row=5, column=3, sticky=N)
 
         ## Create player list
         self.team1list = Listbox(self)
@@ -162,6 +172,16 @@ class Application(Frame):
         self.team2savemin["text"] = "-S"
         self.team2savemin["command"] = self.team2ShotsOnDown
         self.team2savemin.grid(row=4, column=6, sticky=N)
+        ## Miss Add
+        self.team2missadd = Button(self, width=5)
+        self.team2missadd["text"] = "+M"
+        self.team2missadd["command"] = self.team2missesUp
+        self.team2missadd.grid(row=5, column=5, sticky=N)
+        ## Miss Minus
+        self.team2missmin = Button(self, width=5)
+        self.team2missmin["text"] = "-M"
+        self.team2missmin["command"] = self.team2missesDown
+        self.team2missmin.grid(row=5, column=6, sticky=N)
 
         ## Create player list
         self.team2list = Listbox(self)
@@ -252,19 +272,43 @@ class Application(Frame):
 
     def team1ShotsOnUp(self):
         playerIndex = self.team1list.curselection()[0]
-        self.team1.players[int(playerIndex)].addShotsOn()
+        if self.team1.players[int(playerIndex)].isGoalie:
+            self.team1.players[int(playerIndex)].addShotsOn()
 
     def team1ShotsOnDown(self):
         playerIndex = self.team1list.curselection()[0]
-        self.team1.players[int(playerIndex)].subShotsOn()
+        if self.team1.players[int(playerIndex)].isGoalie:
+            self.team1.players[int(playerIndex)].subShotsOn()
 
     def team2ShotsOnUp(self):
         playerIndex = self.team2list.curselection()[0]
-        self.team2.players[int(playerIndex)].addShotsOn()
+        if self.team2.players[int(playerIndex)].isGoalie:
+            self.team2.players[int(playerIndex)].addShotsOn()
 
     def team2ShotsOnDown(self):
         playerIndex = self.team2list.curselection()[0]
-        self.team2.players[int(playerIndex)].subShotsOn()
+        if self.team2.players[int(playerIndex)].isGoalie:
+            self.team2.players[int(playerIndex)].subShotsOn()
+
+    def team1missesUp(self):
+        playerIndex = self.team1list.curselection()[0]
+        if self.team1.players[int(playerIndex)].isGoalie:
+            self.team1.players[int(playerIndex)].addMiss()
+
+    def team1missesDown(self):
+        playerIndex = self.team1list.curselection()[0]
+        if self.team1.players[int(playerIndex)].isGoalie:
+            self.team1.players[int(playerIndex)].subMiss()
+
+    def team2missesUp(self):
+        playerIndex = self.team2list.curselection()[0]
+        if self.team2.players[int(playerIndex)].isGoalie:
+            self.team2.players[int(playerIndex)].addMiss()
+
+    def team2missesDown(self):
+        playerIndex = self.team2list.curselection()[0]
+        if self.team2.players[int(playerIndex)].isGoalie:
+            self.team2.players[int(playerIndex)].subMiss()
 
 def main():
     root = Tk()

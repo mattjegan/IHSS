@@ -8,8 +8,8 @@ class Player():
         self.assists = assists
         self.isGoalie = isGoalie
         if self.isGoalie == True:
-            self.shotsOn = 0
-            self.misses = 0
+            self.shotsOn = goals
+            self.misses = assists
     def addGoal(self):
         self.goals += 1
     def subGoal(self):
@@ -22,7 +22,14 @@ class Player():
         self.shotsOn += 1
     def subShotsOn(self):
         self.shotsOn -= 1
+    def addMiss(self):
+        self.misses += 1
+    def subMiss(self):
+        self.misses -= 1
     def getGoalieSavePercentage(self):
         return 100*(1-(self.misses/self.shotsOn))
     def saveData(self):
-        return "-" + self.firstName + ";" + self.lastName + ";"  + str(self.number) + ";" + str(self.games) + ";" + str(self.goals) + ";" + str(self.assists) + ";" + str(int(self.isGoalie))
+        if self.isGoalie == False:
+            return "-" + self.firstName + ";" + self.lastName + ";"  + str(self.number) + ";" + str(self.games) + ";" + str(self.goals) + ";" + str(self.assists) + ";" + str(int(self.isGoalie))
+        elif self.isGoalie == True:
+            return "-" + self.firstName + ";" + self.lastName + ";"  + str(self.number) + ";" + str(self.games) + ";" + str(self.shotsOn) + ";" + str(self.misses) + ";" + str(int(self.isGoalie))

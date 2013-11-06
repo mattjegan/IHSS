@@ -4,6 +4,6 @@ Assassins
 Wolves
 -Bob;Bib;33;0;17;3;1
 Jokers
--Bob;Bib;33;0;-4;0;1
+-Bob;Bib;33;0;3;0;1
 Silverbacks
 -Bob;Bib;33;0;3;0;1
