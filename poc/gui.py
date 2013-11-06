@@ -37,11 +37,11 @@ class Application(Frame):
                 # (self, firstName, lastName, number, isGoalie=False)
                 playerData = [part for part in item.strip().split(';')]
                 playerData[0] = playerData[0][1:]
-                if playerData[3] == 0:
-                    playerData[3] = False
+                if playerData[6] == 0:
+                    playerData[6] = False
                 else:
-                    playerData[3] = True
-                newPlayer = playerClass.Player(playerData[0], playerData[1], int(playerData[2]), playerData[3])
+                    playerData[6] = True
+                newPlayer = playerClass.Player(playerData[0], playerData[1], int(playerData[2]), int(playerData[3]), int(playerData[4]), int(playerData[5]), int(playerData[6]))
                 # Assign to team
                 teams[currentTeam].addPlayer(newPlayer)
 
@@ -85,10 +85,12 @@ class Application(Frame):
         ## Goal Add
         self.team1goaladd = Button(self, width=5)
         self.team1goaladd["text"] = "+G"
+        self.team1goaladd["command"] = self.team1goalUp
         self.team1goaladd.grid(row=2, column=2, sticky=S)
         ## Goal Minus
         self.team1goalmin = Button(self, width=5)
         self.team1goalmin["text"] = "-G"
+        self.team1goalmin["command"] = self.team1goalDown
         self.team1goalmin.grid(row=2, column=3, sticky=S)
         ## Assist Add
         self.team1assadd = Button(self, width=5)
@@ -192,6 +194,14 @@ class Application(Frame):
         self.team2list.delete(0, END)
         for i in [player.firstName for player in self.team2.players]:
             self.team2list.insert(END, i)
+
+    def team1goalUp(self):
+        playerIndex = self.team1list.curselection()[0]
+        self.team1.players[int(playerIndex)].addGoal()
+
+    def team1goalDown(self):
+        playerIndex = self.team1list.curselection()[0]
+        self.team1.players[int(playerIndex)].subGoal()
 
 def main():
     root = Tk()

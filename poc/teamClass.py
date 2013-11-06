@@ -12,14 +12,14 @@ class Team():
         for e, player in enumerate(self.players):
             if player.number == playerNumber:
                 self.players.remove(e)
-    def addGoal(self, goalPlayerNumber, assistPlayerNumber=math.pi, assist2PlayerNumber=math.pi):
+    def addGoal(self): #goalPlayerNumber, assistPlayerNumber=math.pi, assist2PlayerNumber=math.pi):
         self.totalGoals += 1
-        for player in self.players:
-            if player.number == goalPlayerNumber:
-                player.addGoal()
-            elif player.number == assistPlayerNumber:
-                player.addAssist()
-            elif player.number == assist2PlayerNumber:
-                player.addAssist()
+        #for player in self.players:
+        #    if player.number == goalPlayerNumber:
+        #        player.addGoal()
+        #    elif player.number == assistPlayerNumber:
+        #        player.addAssist()
+        #    elif player.number == assist2PlayerNumber:
+        #        player.addAssist()
     def goalAgainst(self):
         self.totalGoalsAgainst += 1

@@ -1,11 +1,11 @@
 class Player():
-    def __init__(self, firstName, lastName, number, isGoalie=False):
+    def __init__(self, firstName, lastName, number, games, goals, assists, isGoalie=False):
         self.firstName = firstName
         self.lastName = lastName
         self.number = number
-        self.games = 0
-        self.goals = 0
-        self.assists = 0
+        self.games = games
+        self.goals = goals
+        self.assists = assists
         self.isGoalie = isGoalie
         if self.isGoalie == True:
             self.shotsOn = 0

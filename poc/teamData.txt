@@ -1,5 +1,5 @@
 Assassins
--Matthew;Egan;80;0;0;0;1
+-Matthew;Egan;80;0;1;0;1
 -Alex;MacKenzie;55;0;0;0;1
 Wolves
 -Bob;Bib;33;0;0;0;1
