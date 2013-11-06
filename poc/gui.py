@@ -126,7 +126,7 @@ class Application(Frame):
 
         ## Create player list
         self.team1list = Listbox(self)
-        for i in (player.firstName for player in self.team1.players):
+        for i in (player.getFullName() for player in self.team1.players):
             self.team1list.insert(END, i)
         self.team1list.grid(row=2, column=1, rowspan=3, sticky=W+E+N+S)
 
@@ -185,7 +185,7 @@ class Application(Frame):
 
         ## Create player list
         self.team2list = Listbox(self)
-        for i in (player.firstName for player in self.team2.players):
+        for i in (player.getFullName() for player in self.team2.players):
             self.team2list.insert(END, i)
         self.team2list.grid(row=2, column=4, rowspan=3, sticky=W+E+N+S)
 
@@ -216,7 +216,7 @@ class Application(Frame):
                 self.team1 = team
 
         self.team1list.delete(0, END)
-        for i in [player.firstName for player in self.team1.players]:
+        for i in [player.getFullName() for player in self.team1.players]:
             self.team1list.insert(END, i)
 
     def _updatecb2(self, evt):
@@ -227,7 +227,7 @@ class Application(Frame):
                 self.team2 = team
 
         self.team2list.delete(0, END)
-        for i in [player.firstName for player in self.team2.players]:
+        for i in [player.getFullName() for player in self.team2.players]:
             self.team2list.insert(END, i)
 
     def team1goalUp(self):

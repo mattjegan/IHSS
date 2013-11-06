@@ -10,6 +10,8 @@ class Player():
         if self.isGoalie == True:
             self.shotsOn = goals
             self.misses = assists
+    def getFullName(self):
+        return self.firstName + " " + self.lastName
     def addGoal(self):
         self.goals += 1
     def subGoal(self):
