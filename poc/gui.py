@@ -95,22 +95,22 @@ class Application(Frame):
         ## Assist Add
         self.team1assadd = Button(self, width=5)
         self.team1assadd["text"] = "+A"
-        self.team1goaladd["command"] = self.team1assistUp
+        self.team1assadd["command"] = self.team1assistUp
         self.team1assadd.grid(row=3, column=2)
         ## Assist Minus
         self.team1assmin = Button(self, width=5)
         self.team1assmin["text"] = "-A"
-        self.team1goaladd["command"] = self.team1assistsDown
+        self.team1assmin["command"] = self.team1assistDown
         self.team1assmin.grid(row=3, column=3)
         ## Saves Add
         self.team1saveadd = Button(self, width=5)
         self.team1saveadd["text"] = "+S"
-        self.team1goaladd["command"] = self.team1ShotsOnUp
+        self.team1saveadd["command"] = self.team1ShotsOnUp
         self.team1saveadd.grid(row=4, column=2, sticky=N)
         ## Saves Minus
         self.team1savemin = Button(self, width=5)
         self.team1savemin["text"] = "-S"
-        self.team1goaladd["command"] = self.team1ShotsOnDown
+        self.team1savemin["command"] = self.team1ShotsOnDown
         self.team1savemin.grid(row=4, column=3, sticky=N)
 
         ## Create player list
@@ -132,32 +132,32 @@ class Application(Frame):
         ## Goal Add
         self.team2goaladd = Button(self, width=5)
         self.team2goaladd["text"] = "+G"
-        self.team1goaladd["command"] = self.team2goalUp
+        self.team2goaladd["command"] = self.team2goalUp
         self.team2goaladd.grid(row=2, column=5, sticky=S)
         ## Goal Minus
         self.team2goalmin = Button(self, width=5)
         self.team2goalmin["text"] = "-G"
-        self.team1goaladd["command"] = self.team2goalDown
+        self.team2goalmin["command"] = self.team2goalDown
         self.team2goalmin.grid(row=2, column=6, sticky=S)
         ## Assist Add
         self.team2assadd = Button(self, width=5)
         self.team2assadd["text"] = "+A"
-        self.team1goaladd["command"] = self.team2assistsUp
+        self.team2assadd["command"] = self.team2assistUp
         self.team2assadd.grid(row=3, column=5)
         ## Assist Minus
         self.team2assmin = Button(self, width=5)
         self.team2assmin["text"] = "-A"
-        self.team1goaladd["command"] = self.team2assistsDown
+        self.team2assmin["command"] = self.team2assistDown
         self.team2assmin.grid(row=3, column=6)
         ## Saves Add
         self.team2saveadd = Button(self, width=5)
         self.team2saveadd["text"] = "+S"
-        self.team1goaladd["command"] = self.team2ShotsOnUp
+        self.team2saveadd["command"] = self.team2ShotsOnUp
         self.team2saveadd.grid(row=4, column=5, sticky=N)
         ## Saves Minus
         self.team2savemin = Button(self, width=5)
         self.team2savemin["text"] = "-S"
-        self.team1goaladd["command"] = self.team2ShotsOnDown
+        self.team2savemin["command"] = self.team2ShotsOnDown
         self.team2savemin.grid(row=4, column=6, sticky=N)
 
         ## Create player list
@@ -221,19 +221,19 @@ class Application(Frame):
         playerIndex = self.team2list.curselection()[0]
         self.team2.players[int(playerIndex)].subGoal()
 
-    def team1assistsUp(self):
+    def team1assistUp(self):
         playerIndex = self.team1list.curselection()[0]
         self.team1.players[int(playerIndex)].addAssist()
 
-    def team1assistsDown(self):
+    def team1assistDown(self):
         playerIndex = self.team1list.curselection()[0]
         self.team1.players[int(playerIndex)].subAssist()
 
-    def team2assistsUp(self):
+    def team2assistUp(self):
         playerIndex = self.team2list.curselection()[0]
         self.team2.players[int(playerIndex)].addAssist()
 
-    def team2assistsDown(self):
+    def team2assistDown(self):
         playerIndex = self.team2list.curselection()[0]
         self.team2.players[int(playerIndex)].subAssist()
 
