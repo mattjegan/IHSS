@@ -99,7 +99,6 @@ class Application(Frame):
 
         ## Create player list
         self.team1list = Listbox(self)
-        self.team1list.bind("<<ListboxSelect>>", self._updatelb1)
         self.team1list.grid(row=2, column=1, rowspan=3, sticky=W+E+N+S)
 
         ## Team 2 Stuff ##
@@ -141,7 +140,6 @@ class Application(Frame):
 
         ## Create player list
         self.team2list = Listbox(self)
-        self.team2list.bind("<<ListboxSelect>>", self._updatelb2)
         self.team2list.grid(row=2, column=4, rowspan=3, sticky=W+E+N+S)
 
         ## MISC
@@ -170,6 +168,10 @@ class Application(Frame):
             if team.teamName == changedTo:
                 self.team1 = team
 
+        self.team1list.delete(0, END)
+        for i in [player.firstName for player in self.team1.players]:
+            self.team1list.insert(END, i)
+
         print changedTo
 
     def _updatecb2(self, evt):
@@ -179,17 +181,11 @@ class Application(Frame):
             if team.teamName == changedTo:
                 self.team2 = team
 
-        print changedTo
-
-    def _updatelb1(self, evt):
-        evt.widget.delete(0, END)
-        for i in [player.firstName for player in self.team1.players]:
-            evt.widget.insert(END, i)
-
-    def _updatelb2(self, evt):
-        evt.widget.delete(0, END)
+        self.team2list.delete(0, END)
         for i in [player.firstName for player in self.team2.players]:
-            evt.widget.insert(END, i)
+            self.team2list.insert(END, i)
+
+        print changedTo
 
 def main():
     root = Tk()
