@@ -76,7 +76,7 @@ class Application(Frame):
         ## Add Player
         self.addPlayer = Button(self, width=20)
         self.addPlayer["text"] = "Add Player"
-        #self.addPlayer["command"] = self.addPlayerCom
+        self.addPlayer["command"] = self.addPlayerCom
         self.addPlayer.grid(row=2, column=2, sticky=S)
 
         ## Delete Player
@@ -116,7 +116,11 @@ class Application(Frame):
 
     def addPlayerCom(self):
         ## Create new dialog window for entry
-        pass
+        playerDialogRoot = Tk()
+        playerDialogRoot.title("New Player")
+        playerDialog = newPlayerDialog(master=playerDialogRoot)
+        playerDialog.mainloop()
+        playerDialogRoot.destroy()
 
     def delPlayerCom(self):
         try:
@@ -151,6 +155,82 @@ class Application(Frame):
                     self.team1list.insert(END, i)
         except:
             pass
+
+class newPlayerDialog(Frame):
+    def __init__(self, master=None):
+        Frame.__init__(self, master)
+        self.pack()
+        self.createWidgets()
+
+    def createWidgets(self):
+        ## Team label
+        self.teamLbl = Label(self)
+        self.teamLbl["text"] = "Team:"
+        self.teamLbl.grid(row=1, column=0)
+
+        ## Team Combobox
+        self.teamCb = ttk.Combobox(self)
+        self.teamCb.grid(row=1, column=1)
+
+        ## First Name label
+        self.firstLbl = Label(self)
+        self.firstLbl["text"] = "First Name:"
+        self.firstLbl.grid(row=2, column=0)
+
+        ## First Name field
+        self.firstField = Entry(self)
+        self.firstField.grid(row=2, column=1)
+
+        ## Last name label
+        self.lastLbl = Label(self)
+        self.lastLbl["text"] = "Last Name:"
+        self.lastLbl.grid(row=3, column=0)
+
+        ## Last name field
+        self.lastField = Entry(self)
+        self.lastField.grid(row=3, column=1)
+
+        ## Number label
+        self.numberLbl = Label(self)
+        self.numberLbl["text"] = "Number:"
+        self.numberLbl.grid(row=4, column=0)
+
+        ## Number field
+        self.numberField = Entry(self)
+        self.numberField.grid(row=4, column=1)
+
+        ## Goals label
+        self.goalsLbl = Label(self)
+        self.goalsLbl["text"] = "Goals:"
+        self.goalsLbl.grid(row=5, column=0)
+
+        ## Goals field
+        self.goalsField = Entry(self)
+        self.goalsField.grid(row=5, column=1)
+
+        ## Assists label
+        self.assistsLbl = Label(self)
+        self.assistsLbl["text"] = "Assists:"
+        self.assistsLbl.grid(row=6, column=0)
+
+        ## Assists field
+        self.assistsField = Entry(self)
+        self.assistsField.grid(row=6, column=1)
+
+        ## Goalie checkbox
+        self.goalieChk = Checkbutton(self)
+        self.goalieChk["text"] = "Goalie?"
+        self.goalieChk.grid(row=7, column=0, columnspan=2)
+        
+        ## Cancel button
+        self.cancelBtn = Button(self)
+        self.cancelBtn["text"] = "Cancel"
+        self.cancelBtn.grid(row=8, column=0, sticky=E)
+
+        ## Confirm button
+        self.confirmBtn = Button(self)
+        self.confirmBtn["text"] = "Confirm"
+        self.confirmBtn.grid(row=8, column=1, sticky=W)
 
 def main():
     root = Tk()
