@@ -94,7 +94,7 @@ class Application(Frame):
         ## Delete Team
         self.delTeamBtn = Button(self, width=20)
         self.delTeamBtn["text"] = "Delete Team"
-        #self.delTeamBtn["command"] = self.delTeamCom
+        self.delTeamBtn["command"] = self.delTeamCom
         self.delTeamBtn.grid(row=5, column=2, sticky=S)
 
         ## Create player list
@@ -132,7 +132,25 @@ class Application(Frame):
         pass
 
     def delTeamCom(self):
-        pass
+        try:
+            teamToDel = self.team1
+            self.team1 = None
+            if len(teamToDel.players) == 0:
+                # Remove team from combobox dropdown
+                self.teamNames.remove(teamToDel.teamName)
+                self.combo["values"] = (self.teamNames)
+                self.combo.current(0)
+
+                # Remove team from system
+                self.teamList.remove(teamToDel)
+                self.team1 = self.teamList[0]
+                
+                # Show new teams players in listbox
+                self.team1list.delete(0, END)
+                for i in (player.getFullName() for player in self.team1.players):
+                    self.team1list.insert(END, i)
+        except:
+            pass
 
 def main():
     root = Tk()
