@@ -95,6 +95,17 @@ class Application(Frame):
             self.team1list.insert(END, i)
         self.team1list.grid(row=2, column=1, rowspan=3, sticky=W+E+N+S)
 
+    def _updatecb1(self, evt):
+        changedTo = evt.widget.get()
+
+        for team in self.teamList:
+            if team.teamName == changedTo:
+                self.team1 = team
+
+        self.team1list.delete(0, END)
+        for i in [player.getFullName() for player in self.team1.players]:
+            self.team1list.insert(END, i)
+
 def main():
     root = Tk()
     root.title("Scorer")
