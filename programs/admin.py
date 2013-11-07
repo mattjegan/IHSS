@@ -50,25 +50,23 @@ class Application(Frame):
         for team in teams:
             self.addTeam(team)
 
-    def saveData(self):
-        teamData = []
-        for team in self.teamList:
-            teamData.append(team.teamName)
-            for player in team.players:
-                teamData.append(player.saveData())
+    #def saveData(self):
+    #    teamData = []
+    #    for team in self.teamList:
+    #        teamData.append(team.teamName)
+    #        for player in team.players:
+    #            teamData.append(player.saveData())
 
-        self.quit()
-        dataFile = open("teamData.txt", "w")
-        for item in teamData:
-            dataFile.write(item + "\n")
-        dataFile.close()
+    #    self.quit()
+    #    dataFile = open("teamData.txt", "w")
+    #    for item in teamData:
+    #        dataFile.write(item + "\n")
+    #    dataFile.close()
 
     def createWidgets(self):
-        ## Create button
-
-        ## Team 1 Stuff ##
+        ## Team Stuff ##
         self.team1Lab = Label(self)
-        self.team1Lab["text"] = "Team1"
+        self.team1Lab["text"] = "Team"
         self.team1Lab.grid(row=1, column=0)
 
         ## Create combobox
@@ -79,21 +77,32 @@ class Application(Frame):
         self.combo.grid(row=1, column=1)
 
         ## Add Player
-        self.addPlayer = Button(self, width=5)
-        self.addPlayer["text"] = "+G"
-        self.addPlayer["command"] = self.addPlayerCom
+        self.addPlayer = Button(self, width=20)
+        self.addPlayer["text"] = "Add Player"
+        #self.addPlayer["command"] = self.addPlayerCom
         self.addPlayer.grid(row=2, column=2, sticky=S)
+
         ## Delete Player
-        self.delPlayer = Button(self, width=5)
-        self.delPlayer["text"] = "-G"
-        self.delPlayer["command"] = self.delPlayerCom
-        self.delPlayer.grid(row=2, column=3, sticky=S)
+        self.delPlayer = Button(self, width=20)
+        self.delPlayer["text"] = "Delete Player"
+        #self.delPlayer["command"] = self.delPlayerCom
+        self.delPlayer.grid(row=3, column=2, sticky=S)
+
+        ## Add Team
+        self.addTeamBtn = Button(self, width=20)
+        self.addTeamBtn["text"] = "Add Team"
+        self.addTeamBtn.grid(row=4, column=2, sticky=S)
+
+        ## Delete Team
+        self.delTeamBtn = Button(self, width=20)
+        self.delTeamBtn["text"] = "Delete Team"
+        self.delTeamBtn.grid(row=5, column=2, sticky=S)
 
         ## Create player list
         self.team1list = Listbox(self)
         for i in (player.getFullName() for player in self.team1.players):
             self.team1list.insert(END, i)
-        self.team1list.grid(row=2, column=1, rowspan=3, sticky=W+E+N+S)
+        self.team1list.grid(row=2, column=1, rowspan=4, sticky=W+E+N+S)
 
     def _updatecb1(self, evt):
         changedTo = evt.widget.get()
@@ -106,12 +115,25 @@ class Application(Frame):
         for i in [player.getFullName() for player in self.team1.players]:
             self.team1list.insert(END, i)
 
+    def addPlayerCom(self):
+        ## Create new dialog window for entry
+        pass
+
+    def delPlayerCom(self):
+        pass
+
+    def addTeamCom(self):
+        pass
+
+    def delTeamCom(self):
+        pass
+
 def main():
     root = Tk()
     root.title("Scorer")
     #root.overrideredirect(1) #Uncomment to remove window borders
     app = Application(master=root)
-    root.protocol('WM_DELETE_WINDOW', app.saveData)
+    #root.protocol('WM_DELETE_WINDOW', app.saveData)
     app.mainloop()
     root.destroy()
 
