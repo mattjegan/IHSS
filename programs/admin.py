@@ -14,9 +14,6 @@ class Application(Frame):
         for team in self.teamList:
             self.teamNames.append(team.teamName)
         self.team1 = self.teamList[0]
-        self.team2 = self.teamList[1]
-        self.team1score = 0
-        self.team2score = 0
         self.createWidgets()
 
     def addTeam(self, team):
@@ -85,17 +82,19 @@ class Application(Frame):
         ## Delete Player
         self.delPlayer = Button(self, width=20)
         self.delPlayer["text"] = "Delete Player"
-        #self.delPlayer["command"] = self.delPlayerCom
+        self.delPlayer["command"] = self.delPlayerCom
         self.delPlayer.grid(row=3, column=2, sticky=S)
 
         ## Add Team
         self.addTeamBtn = Button(self, width=20)
         self.addTeamBtn["text"] = "Add Team"
+        #self.addTeamBtn["command"] = self.addTeamCom
         self.addTeamBtn.grid(row=4, column=2, sticky=S)
 
         ## Delete Team
         self.delTeamBtn = Button(self, width=20)
         self.delTeamBtn["text"] = "Delete Team"
+        #self.delTeamBtn["command"] = self.delTeamCom
         self.delTeamBtn.grid(row=5, column=2, sticky=S)
 
         ## Create player list
@@ -120,9 +119,16 @@ class Application(Frame):
         pass
 
     def delPlayerCom(self):
-        pass
+        try:
+            playerIndex = self.team1list.curselection()[0]
+            print "Deleting:", self.team1.players[int(playerIndex)].getFullName()
+            self.team1list.delete(int(playerIndex))
+            self.team1.players.remove(self.team1.players[int(playerIndex)])
+        except:
+            pass
 
     def addTeamCom(self):
+        ## Create new dialog window for entry
         pass
 
     def delTeamCom(self):
