@@ -144,7 +144,6 @@ class Application(Frame):
     def delPlayerCom(self):
         try:
             playerIndex = self.team1list.curselection()[0]
-            print "Deleting:", self.team1.players[int(playerIndex)].getFullName()
             self.team1list.delete(int(playerIndex))
             self.team1.players.remove(self.team1.players[int(playerIndex)])
         except:
@@ -197,35 +196,24 @@ class Application(Frame):
             editPlayerRoot.title("Edit Player")
             editPlayerDialog = newEditPlayerDialog(playerToEdit, playerCurTeam, self.teamNames, master=editPlayerRoot)
             editPlayerDialog.mainloop()
-            print "HAS QUIT"
+
             # Append team and player stat changes
             playerTeam = editPlayerDialog.getTeam()
 
-            print playerTeam
-            print playerCurTeam
-            print "Checking team changes"
             if playerTeam != playerCurTeam:
                 for team in self.teamList:
-                    print "-", team.teamName, playerTeam
                     if team.teamName == playerTeam:
-                        print 1
                         team.addPlayer(editPlayerDialog.getPlayer())
-                        print 2
                         self.team1.players.remove(playerToEdit)
-                        print 3
                         break
             else:
-                print "HERE"
                 self.team1.players[int(playerIndex)] = editPlayerDialog.getPlayer()
-                print "HERE2"
 
-            print "Updating lsitbox"
             ## Update listbox
             self.team1list.delete(0, END)
             for i in [player.getFullName() for player in self.team1.players]:
                 self.team1list.insert(END, i)
 
-            print "Destorying"
             editPlayerRoot.destroy()
         except:
             pass
@@ -466,10 +454,7 @@ class newEditPlayerDialog(Frame):
         self.confirmBtn.grid(row=8, column=1, sticky=W)
 
     def confirmPlayer(self):
-        print "PRESSED"
         # Create player
-        print "First:", self.firstField.get()
-        print "Team:", self.teamCb.get()
         firstName = self.firstField.get()
         lastName = self.lastField.get()
         number = int(self.numberField.get())
@@ -482,14 +467,11 @@ class newEditPlayerDialog(Frame):
             isGoalie = 0
         else:
             isGoalie = 0
-        print "CREATING PLAYER"
         self.player = playerClass.Player(firstName, lastName, number, games, goals, assists, isGoalie)
-        print "QUITING"
         self.quit()
 
     def _updateCb(self, evt):
         self.teamN = evt.widget.get()
-        print self.teamN
 
     def getTeam(self):
         return self.teamN
