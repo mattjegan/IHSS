@@ -120,8 +120,19 @@ class Application(Frame):
         playerDialogRoot.title("New Player")
         playerDialog = newPlayerDialog(self.teamNames, master=playerDialogRoot)
         playerDialog.mainloop()
-        print playerDialog.getPlayer().firstName
+        playerData = playerDialog.getPlayer()
+        teamToPlace = playerDialog.getTeam()
         playerDialogRoot.destroy()
+
+        ## Add player to team
+        for team in self.teamList:
+            if team.teamName == teamToPlace:
+                team.addPlayer(playerData)
+
+        ## Update listbox
+        self.team1list.delete(0, END)
+        for i in [player.getFullName() for player in self.team1.players]:
+            self.team1list.insert(END, i)
 
     def delPlayerCom(self):
         try:
@@ -255,6 +266,9 @@ class newPlayerDialog(Frame):
             isGoalie = 0
         self.player = playerClass.Player(firstName, lastName, number, games, goals, assists, isGoalie)
         self.quit()
+
+    def getTeam(self):
+        return self.teamCb.get()
 
     def getPlayer(self):
         return self.player
