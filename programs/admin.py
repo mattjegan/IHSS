@@ -118,8 +118,9 @@ class Application(Frame):
         ## Create new dialog window for entry
         playerDialogRoot = Tk()
         playerDialogRoot.title("New Player")
-        playerDialog = newPlayerDialog(master=playerDialogRoot)
+        playerDialog = newPlayerDialog(self.teamNames, master=playerDialogRoot)
         playerDialog.mainloop()
+        print playerDialog.getPlayer().firstName
         playerDialogRoot.destroy()
 
     def delPlayerCom(self):
@@ -157,8 +158,9 @@ class Application(Frame):
             pass
 
 class newPlayerDialog(Frame):
-    def __init__(self, master=None):
+    def __init__(self, teamNames, master=None):
         Frame.__init__(self, master)
+        self.teamNames = teamNames
         self.pack()
         self.createWidgets()
 
@@ -170,6 +172,8 @@ class newPlayerDialog(Frame):
 
         ## Team Combobox
         self.teamCb = ttk.Combobox(self)
+        self.teamCb["values"] = (self.teamNames)
+        self.teamCb.current(0)
         self.teamCb.grid(row=1, column=1)
 
         ## First Name label
@@ -217,20 +221,43 @@ class newPlayerDialog(Frame):
         self.assistsField = Entry(self)
         self.assistsField.grid(row=6, column=1)
 
-        ## Goalie checkbox
-        self.goalieChk = Checkbutton(self)
-        self.goalieChk["text"] = "Goalie?"
+        ## Goalie combobox
+        self.goalieChk = ttk.Combobox(self)
+        self.goalieChk["values"] = ("No", "Yes")
+        self.goalieChk.current(0)
         self.goalieChk.grid(row=7, column=0, columnspan=2)
         
         ## Cancel button
         self.cancelBtn = Button(self)
         self.cancelBtn["text"] = "Cancel"
+        self.cancelBtn["command"] = self.quit
         self.cancelBtn.grid(row=8, column=0, sticky=E)
 
         ## Confirm button
         self.confirmBtn = Button(self)
         self.confirmBtn["text"] = "Confirm"
+        self.confirmBtn["command"] = self.confirmPlayer
         self.confirmBtn.grid(row=8, column=1, sticky=W)
+
+    def confirmPlayer(self):
+        # Create player
+        firstName = self.firstField.get()
+        lastName = self.lastField.get()
+        number = int(self.numberField.get())
+        games = 0
+        goals = self.goalsField.get()
+        assists = self.assistsField.get()
+        if self.goalieChk.get() == "Yes":
+            isGoalie = 1
+        elif self.goalieChk.get() == "No":
+            isGoalie = 0
+        else:
+            isGoalie = 0
+        self.player = playerClass.Player(firstName, lastName, number, games, goals, assists, isGoalie)
+        self.quit()
+
+    def getPlayer(self):
+        return self.player
 
 def main():
     root = Tk()
