@@ -5,5 +5,9 @@ Wolves
 -Bob;Bib;33;0;17;3;0
 Jokers
 -Bob;Bib;33;0;11;14;1
+-Tim;Russell;69;0;10;10;0
 Silverbacks
 -Bob;Bib;33;0;3;0;0
+Tigers
+-Bif;Bob;2;0;5;7;0
+-Grass;Man;9;0;1;0;0
