@@ -88,7 +88,7 @@ class Application(Frame):
         ## Add Team
         self.addTeamBtn = Button(self, width=20)
         self.addTeamBtn["text"] = "Add Team"
-        #self.addTeamBtn["command"] = self.addTeamCom
+        self.addTeamBtn["command"] = self.addTeamCom
         self.addTeamBtn.grid(row=4, column=2, sticky=S)
 
         ## Delete Team
@@ -124,15 +124,16 @@ class Application(Frame):
         teamToPlace = playerDialog.getTeam()
         playerDialogRoot.destroy()
 
-        ## Add player to team
-        for team in self.teamList:
-            if team.teamName == teamToPlace:
-                team.addPlayer(playerData)
+        if playerData != None:
+            ## Add player to team
+            for team in self.teamList:
+                if team.teamName == teamToPlace:
+                    team.addPlayer(playerData)
 
-        ## Update listbox
-        self.team1list.delete(0, END)
-        for i in [player.getFullName() for player in self.team1.players]:
-            self.team1list.insert(END, i)
+            ## Update listbox
+            self.team1list.delete(0, END)
+            for i in [player.getFullName() for player in self.team1.players]:
+                self.team1list.insert(END, i)
 
     def delPlayerCom(self):
         try:
@@ -145,7 +146,19 @@ class Application(Frame):
 
     def addTeamCom(self):
         ## Create new dialog window for entry
-        pass
+        teamDialogRoot = Tk()
+        teamDialogRoot.title("New Team")
+        teamDialog = newTeamDialog(master=teamDialogRoot)
+        teamDialog.mainloop()
+        newTeam = teamDialog.getTeam()
+        teamDialogRoot.destroy()
+
+        ## Add team to teamList
+        self.teamList.append(newTeam)
+
+        ## Update combobox
+        self.teamNames.append(newTeam.teamName)
+        self.combo["values"] = self.teamNames
 
     def delTeamCom(self):
         try:
@@ -172,6 +185,7 @@ class newPlayerDialog(Frame):
     def __init__(self, teamNames, master=None):
         Frame.__init__(self, master)
         self.teamNames = teamNames
+        self.player = None
         self.pack()
         self.createWidgets()
 
@@ -272,6 +286,41 @@ class newPlayerDialog(Frame):
 
     def getPlayer(self):
         return self.player
+
+class newTeamDialog(Frame):
+    def __init__(self, master=None):
+        Frame.__init__(self, master)
+        self.pack()
+        self.createWidgets()
+
+    def createWidgets(self):
+        ## Create team label
+        self.teamLbl = Label(self)
+        self.teamLbl["text"] = "Team Name:"
+        self.teamLbl.grid(row=0, column=0)
+
+        ## Create team entry
+        self.teamEntry = Entry(self)
+        self.teamEntry.grid(row=0, column=1)
+
+        ## Create cancel button
+        self.cancelBtn = Button(self)
+        self.cancelBtn["text"] = "Cancel"
+        self.cancelBtn["command"] = self.quit
+        self.cancelBtn.grid(row=1, column=0)
+
+        ## Create confirm button
+        self.confirmBtn = Button(self)
+        self.confirmBtn["text"] = "Confirm"
+        self.confirmBtn["command"] = self.confirmTeam
+        self.confirmBtn.grid(row=1, column=1)
+
+    def confirmTeam(self):
+        self.newTeam = teamClass.Team(self.teamEntry.get())
+        self.quit()
+
+    def getTeam(self):
+        return self.newTeam
 
 def main():
     root = Tk()
