@@ -3,7 +3,14 @@ IHSS
 
 Inline Hockey Statistics System
 
-Installation
+Installation (Standalone)
+----
+
+- python 2.7
+
+Run programs/IHSS.py
+
+Installation (Excel Program)
 ----
 
 - python 2.7
