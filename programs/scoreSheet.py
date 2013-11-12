@@ -52,6 +52,49 @@ class Application(Frame):
             self.addTeam(team)
 
     def saveData(self):
+        ## Save individual game stats
+        gameFileName = "savedGames/game" + str(self.gameNumber) + ".txt"
+        gameFile = open(gameFileName, "w")
+        gameFile.write(str(self.gameNumber))
+        gameFile.write("\n")
+        gameFile.write(self.dateVar.get())
+        gameFile.write("\n")
+        gameFile.write(self.timeVar.get())
+        gameFile.write("\n")
+        gameFile.write(self.ref1Var.get())
+        gameFile.write("\n")
+        gameFile.write(self.ref2Var.get())
+        gameFile.write("\n")
+        gameFile.write(self.scorerVar.get())
+        gameFile.write("\n")
+        gameFile.write(self.timekeeperVar.get())
+        gameFile.write("\n")
+        gameFile.write("\n")
+        gameFile.write(str(self.team1score)+"v"+str(self.team2score))
+        gameFile.write("\n")
+        gameFile.write("\n")
+
+        gameFile.write(self.team1.teamName)
+        for player in self.team1.players:
+            gameFile.write("\n")
+            gameFile.write(player.saveData())
+
+        gameFile.write("\n")
+
+        gameFile.write(self.team2.teamName)
+        for player in self.team2.players:
+            gameFile.write("\n")
+            gameFile.write(player.saveData())
+            
+        gameFile.close()
+
+        ## Update game number for next game
+        self.gameNumber += 1
+        gameNFile = open("gameNumber.txt", "w")
+        gameNFile.write(str(self.gameNumber))
+        gameNFile.close()
+
+        ## Save overall player stats
         teamData = []
         for team in self.teamList:
             teamData.append(team.teamName)
@@ -75,11 +118,17 @@ class Application(Frame):
 
         timeDate = Frame(admin)
         timeDate.grid(row=1, column=0)
+
         self.dateLbl = Label(timeDate, text="Date: ").grid(row=0, column=0)
-        self.dateField = Entry(timeDate).grid(row=0, column=1)
+        self.dateVar = StringVar()
+        self.dateField = Entry(timeDate, textvariable=self.dateVar).grid(row=0, column=1)
+        self.dateVar.set("Date")
+
         self.timeLbl = Label(timeDate, text="Time: ").grid(row=1, column=0)
-        self.timeEntry = Entry(timeDate).grid(row=1, column=1)
-        
+        self.timeVar = StringVar()
+        self.timeEntry = Entry(timeDate, textvariable=self.timeVar).grid(row=1, column=1)
+        self.timeVar.set("Time")
+
         self.resultLbl = Label(timeDate)
         self.resultLbl["text"] = "Result: "+str(self.team1score)+"v"+str(self.team2score)
         self.resultLbl.grid(row=0, column=2)
@@ -88,13 +137,24 @@ class Application(Frame):
         self.finalLbl = Label(timeDate, text="Final: v").grid(row=2, column=2)
         
         self.ref1Lbl = Label(timeDate, text="Ref1").grid(row=0, column=4)
-        self.ref1 = Entry(timeDate).grid(row=0, column=5)
+        self.ref1Var = StringVar()
+        self.ref1 = Entry(timeDate, textvariable=self.ref1Var).grid(row=0, column=5)
+        self.ref1Var.set("Referee 1")
+
         self.ref2Lbl = Label(timeDate, text="Ref2").grid(row=1, column=4)
-        self.ref2 = Entry(timeDate).grid(row=1, column=5)
+        self.ref2Var = StringVar()
+        self.ref2 = Entry(timeDate, textvariable=self.ref2Var).grid(row=1, column=5)
+        self.ref2Var.set("Referee 2")
+
         self.scorerLbl = Label(timeDate, text="Scorer").grid(row=0, column=6)
-        self.scorerFld = Entry(timeDate).grid(row=0, column=7)
+        self.scorerVar = StringVar()
+        self.scorerFld = Entry(timeDate, textvariable=self.scorerVar).grid(row=0, column=7)
+        self.scorerVar.set("Scorer")
+
         self.timekeeperLbl = Label(timeDate, text="Timekeeper").grid(row=1, column=6)
-        self.timekeeperFld = Entry(timeDate).grid(row=1, column=7)
+        self.timekeeperVar = StringVar()
+        self.timekeeperFld = Entry(timeDate, textvariable=self.timekeeperVar).grid(row=1, column=7)
+        self.timekeeperVar.set("Timekeeper")
 
         ## Scoring Area
         scorer = Frame(self)
@@ -260,7 +320,6 @@ class Application(Frame):
 
     def team2goalUp(self):
         self.team2score += 1
-        print str("Result: "+str(self.team1score)+"v"+str(self.team2score))
         self.resultLbl["text"] = str("Result: "+str(self.team1score)+"v"+str(self.team2score))
         playerIndex = self.team2list.curselection()[0]
         self.team2.players[int(playerIndex)].addGoal()
@@ -328,11 +387,7 @@ class Application(Frame):
             self.team2.players[int(playerIndex)].subMiss()
 
     def endGameProc(self):
-        self.gameNumber += 1
-        gameNFile = open("gameNumber.txt", "w")
-        gameNFile.write(str(self.gameNumber))
-        gameNFile.close()
-        self.quit()
+        self.saveData()
 
 def main():
     root = Tk()
