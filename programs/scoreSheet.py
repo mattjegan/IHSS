@@ -10,6 +10,7 @@ class Application(Frame):
         self.teamList = []
         self.pack()
         self.loadData()
+        self.gameNumber = int([line for line in open("gameNumber.txt", "rU")][0])
         self.teamNames = []
         for team in self.teamList:
             self.teamNames.append(team.teamName)
@@ -68,8 +69,12 @@ class Application(Frame):
         admin = Frame(self)
         admin.grid(row=0, column=0)
 
+        game = Label(admin)
+        game["text"] = "Game: " + str(self.gameNumber)
+        game.grid(row=0, column=0, sticky=N+S+E+W)
+
         timeDate = Frame(admin)
-        timeDate.grid(row=0, column=0)
+        timeDate.grid(row=1, column=0)
         self.dateLbl = Label(timeDate, text="Date: ").grid(row=0, column=0)
         self.dateField = Entry(timeDate).grid(row=0, column=1)
         self.timeLbl = Label(timeDate, text="Time: ").grid(row=1, column=0)
@@ -121,22 +126,22 @@ class Application(Frame):
         self.team1assadd = Button(scorer, width=5)
         self.team1assadd["text"] = "+A"
         self.team1assadd["command"] = self.team1assistUp
-        self.team1assadd.grid(row=3, column=2)
+        self.team1assadd.grid(row=3, column=2, sticky=N)
         ## Assist Minus
         self.team1assmin = Button(scorer, width=5)
         self.team1assmin["text"] = "-A"
         self.team1assmin["command"] = self.team1assistDown
-        self.team1assmin.grid(row=3, column=3)
+        self.team1assmin.grid(row=3, column=3, sticky=N)
         ## Saves Add
         self.team1saveadd = Button(scorer, width=5)
         self.team1saveadd["text"] = "+S"
         self.team1saveadd["command"] = self.team1ShotsOnUp
-        self.team1saveadd.grid(row=4, column=2, sticky=N)
+        self.team1saveadd.grid(row=4, column=2, sticky=S)
         ## Saves Minus
         self.team1savemin = Button(scorer, width=5)
         self.team1savemin["text"] = "-S"
         self.team1savemin["command"] = self.team1ShotsOnDown
-        self.team1savemin.grid(row=4, column=3, sticky=N)
+        self.team1savemin.grid(row=4, column=3, sticky=S)
         ## Miss Add
         self.team1missadd = Button(scorer, width=5)
         self.team1missadd["text"] = "+M"
@@ -152,7 +157,7 @@ class Application(Frame):
         self.team1list = Listbox(scorer)
         for i in (player.getFullName() for player in self.team1.players):
             self.team1list.insert(END, i)
-        self.team1list.grid(row=2, column=1, rowspan=3, sticky=W+E+N+S)
+        self.team1list.grid(row=2, column=1, rowspan=4, sticky=W+E+N+S)
 
         ## Team 2 Stuff ##
         self.team2Lab = Label(scorer)
@@ -180,22 +185,22 @@ class Application(Frame):
         self.team2assadd = Button(scorer, width=5)
         self.team2assadd["text"] = "+A"
         self.team2assadd["command"] = self.team2assistUp
-        self.team2assadd.grid(row=3, column=5)
+        self.team2assadd.grid(row=3, column=5, sticky=N)
         ## Assist Minus
         self.team2assmin = Button(scorer, width=5)
         self.team2assmin["text"] = "-A"
         self.team2assmin["command"] = self.team2assistDown
-        self.team2assmin.grid(row=3, column=6)
+        self.team2assmin.grid(row=3, column=6, sticky=N)
         ## Saves Add
         self.team2saveadd = Button(scorer, width=5)
         self.team2saveadd["text"] = "+S"
         self.team2saveadd["command"] = self.team2ShotsOnUp
-        self.team2saveadd.grid(row=4, column=5, sticky=N)
+        self.team2saveadd.grid(row=4, column=5, sticky=S)
         ## Saves Minus
         self.team2savemin = Button(scorer, width=5)
         self.team2savemin["text"] = "-S"
         self.team2savemin["command"] = self.team2ShotsOnDown
-        self.team2savemin.grid(row=4, column=6, sticky=N)
+        self.team2savemin.grid(row=4, column=6, sticky=S)
         ## Miss Add
         self.team2missadd = Button(scorer, width=5)
         self.team2missadd["text"] = "+M"
@@ -211,7 +216,13 @@ class Application(Frame):
         self.team2list = Listbox(scorer)
         for i in (player.getFullName() for player in self.team2.players):
             self.team2list.insert(END, i)
-        self.team2list.grid(row=2, column=4, rowspan=3, sticky=W+E+N+S)
+        self.team2list.grid(row=2, column=4, rowspan=4, sticky=W+E+N+S)
+
+        ## End Game Button
+        self.endGame = Button(self)
+        self.endGame["text"] = "End Game"
+        self.endGame["command"] = self.endGameProc
+        self.endGame.grid(row=3, column=0, sticky=N+S+E+W)
 
     def _updatecb1(self, evt):
         changedTo = evt.widget.get()
@@ -315,6 +326,13 @@ class Application(Frame):
         playerIndex = self.team2list.curselection()[0]
         if self.team2.players[int(playerIndex)].isGoalie:
             self.team2.players[int(playerIndex)].subMiss()
+
+    def endGameProc(self):
+        self.gameNumber += 1
+        gameNFile = open("gameNumber.txt", "w")
+        gameNFile.write(str(self.gameNumber))
+        gameNFile.close()
+        self.quit()
 
 def main():
     root = Tk()
