@@ -1,4 +1,6 @@
 from Tkinter import *
+import ttk
+import os
 
 import scoreSheet
 import admin
@@ -38,9 +40,9 @@ class Application(Frame):
         password = self.passVar.get()
 
         if username == "admin" and password == "maxskate":
-            admin.main()
+            os.system("python admin.py")
         elif username == "scorer" and password == "hockey":
-            scoresheet.main()
+            os.system("python scoreSheet.py")
 
 def main():
     root = Tk()

@@ -2,9 +2,9 @@ Assassins
 -Matthew;Egan;80;0;34;12;0
 -Alex;MacKenzie;55;0;27;1;0
 Wolves
--Bob;Bib;33;0;29;3;0
+-Bob;Bib;33;0;31;3;0
 Jokers
--Bob;Bib;33;0;14;14;1
+-Bob;Bib;33;0;38;25;1
 -Tim;Russell;69;0;15;10;0
 Silverbacks
 -Bob;Bib;33;0;3;0;0

@@ -45,14 +45,17 @@ class Player():
     def subMiss(self):
         self.misses -= 1
         self.missesThisGame -= 1
-    def getGoalieSavePercentage(self):
-        return 100*(1-(self.misses/self.shotsOn))
+    def getGoalieSavePercentage(self, inGame):
+        if inGame == True:
+            return 100*(1-(float(self.missesThisGame)/float(self.shotsOnThisGame)))
+        else:
+            return 100*(1-(self.misses/self.shotsOn))
     def saveData(self, inGame):
         if inGame == True:
             if self.isGoalie == False:
                 return "-" + self.firstName + ";" + self.lastName + ";"  + str(self.number) + ";" + str(self.games) + ";" + str(self.goalsThisGame) + ";" + str(self.assistsThisGame) + ";" + str(0)
             elif self.isGoalie == True:
-                return "-" + self.firstName + ";" + self.lastName + ";"  + str(self.number) + ";" + str(self.games) + ";" + str(self.shotsOnThisGame) + ";" + str(self.missesThisGame) + ";" + str(1)
+                return "-" + self.firstName + ";" + self.lastName + ";"  + str(self.number) + ";" + str(self.games) + ";" + str(self.shotsOnThisGame) + ";" + str(self.missesThisGame) + ";" + str(1) + "\n" + str(self.getGoalieSavePercentage(inGame))
         else:
             if self.isGoalie == False:
                 return "-" + self.firstName + ";" + self.lastName + ";"  + str(self.number) + ";" + str(self.games) + ";" + str(self.goals) + ";" + str(self.assists) + ";" + str(0)
