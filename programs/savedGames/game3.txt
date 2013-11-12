@@ -1,0 +1,15 @@
+3
+12/11/2013
+13:19
+Referee 1
+Referee 2
+Scorer
+Timekeeper
+
+5v0
+
+Jokers
+-Bob;Bib;33;0;3;0;1
+-Tim;Russell;69;0;5;0;0
+Wolves
+-Bob;Bib;33;0;0;0;0

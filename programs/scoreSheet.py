@@ -1,6 +1,8 @@
 from Tkinter import *
 import ttk
 
+import datetime
+
 import teamClass
 import playerClass
 
@@ -122,12 +124,14 @@ class Application(Frame):
         self.dateLbl = Label(timeDate, text="Date: ").grid(row=0, column=0)
         self.dateVar = StringVar()
         self.dateField = Entry(timeDate, textvariable=self.dateVar).grid(row=0, column=1)
-        self.dateVar.set("Date")
+        currentDate = str(datetime.date.today().day) + "/" + str(datetime.date.today().month) + "/" + str(datetime.date.today().year)
+        self.dateVar.set(currentDate)
 
         self.timeLbl = Label(timeDate, text="Time: ").grid(row=1, column=0)
         self.timeVar = StringVar()
         self.timeEntry = Entry(timeDate, textvariable=self.timeVar).grid(row=1, column=1)
-        self.timeVar.set("Time")
+        currentTime = str(datetime.datetime.now().hour) + ":" + str(datetime.datetime.now().minute)
+        self.timeVar.set(currentTime)
 
         self.resultLbl = Label(timeDate)
         self.resultLbl["text"] = "Result: "+str(self.team1score)+"v"+str(self.team2score)
