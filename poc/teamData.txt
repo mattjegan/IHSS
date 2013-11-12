@@ -1,9 +1,0 @@
-Assassins
--Matthew;Egan;80;0;9;12;0
--Alex;MacKenzie;55;0;23;0;0
-Wolves
--Bob;Bib;33;0;17;3;0
-Jokers
--Bob;Bib;33;0;11;14;1
-Silverbacks
--Bob;Bib;33;0;3;0;0
