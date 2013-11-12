@@ -52,7 +52,7 @@ class Application(Frame):
         for team in self.teamList:
             teamData.append(team.teamName)
             for player in team.players:
-                teamData.append(player.saveData())
+                teamData.append(player.saveData(False))
 
         self.quit()
         dataFile = open("teamData.txt", "w")
