@@ -77,15 +77,15 @@ class Application(Frame):
         gameFile.write(self.team1.teamName)
         for player in self.team1.players:
             gameFile.write("\n")
-            gameFile.write(player.saveData())
+            gameFile.write(player.saveData(True))
 
         gameFile.write("\n")
 
         gameFile.write(self.team2.teamName)
         for player in self.team2.players:
             gameFile.write("\n")
-            gameFile.write(player.saveData())
-            
+            gameFile.write(player.saveData(True))
+
         gameFile.close()
 
         ## Update game number for next game
@@ -99,7 +99,7 @@ class Application(Frame):
         for team in self.teamList:
             teamData.append(team.teamName)
             for player in team.players:
-                teamData.append(player.saveData())
+                teamData.append(player.saveData(False))
 
         self.quit()
         dataFile = open("teamData.txt", "w")
