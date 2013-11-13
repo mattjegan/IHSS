@@ -119,7 +119,7 @@ class Application(Frame):
         self.editBtn.grid(row=6, column=3, sticky=S)
 
         ## Create player list
-        self.team1list = Listbox(self, height=15)
+        self.team1list = Listbox(self, height=self.maxTeamPlayers)
         for i in (player.getFullName() for player in self.team1.players):
             self.team1list.insert(END, i)
         self.team1list.grid(row=2, column=1, rowspan=6, sticky=W+E+N+S)
