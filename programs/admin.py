@@ -9,6 +9,7 @@ class Application(Frame):
         Frame.__init__(self, master)
         self.teamList = []
         self.pack()
+        self.maxTeamPlayers = 2
         self.loadData()
         self.teamNames = []
         for team in self.teamList:
@@ -26,7 +27,7 @@ class Application(Frame):
 
         teams = []
         currentTeam = -1
-
+        players = 0
         self.maxNumber = 0
 
         for item in dataArray:
@@ -34,7 +35,13 @@ class Application(Frame):
                 currentTeam += 1
                 newTeam = teamClass.Team(str(item).strip())
                 teams.append(newTeam)
+
+                if players > self.maxTeamPlayers:
+                    self.maxTeamPlayers = players
+
+                players = 0
             else:
+                players += 1
                 # (self, firstName, lastName, number, isGoalie=False)
                 playerData = [part for part in item.strip().split(';')]
 
