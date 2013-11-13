@@ -44,11 +44,11 @@ class Application(Frame):
                 if int(playerData[0]) > self.maxNumber:
                     self.maxNumber = int(playerData[0]) 
 
-                if int(playerData[-1]) == 0:
-                    playerData[-1] = False
+                if int(playerData[9]) == 0:
+                    playerData[9] = False
                 else:
-                    playerData[-1] = True
-                newPlayer = playerClass.Player(playerData[0], playerData[1], playerData[2], int(playerData[3]), int(playerData[4]), int(playerData[5]), int(playerData[6]), int(playerData[7]), int(playerData[8]), int(playerData[9]))
+                    playerData[9] = True
+                newPlayer = playerClass.Player(playerData[0], playerData[1], playerData[2], int(playerData[3]), int(playerData[4]), int(playerData[5]), int(playerData[6]), int(playerData[7]), int(playerData[8]), int(playerData[9]), int(playerData[10]), int(playerData[11]), int(playerData[12]), int(playerData[13]), int(playerData[14]))
                 # Assign to team
                 teams[currentTeam].addPlayer(newPlayer)
 
