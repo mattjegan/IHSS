@@ -1,0 +1,16 @@
+20
+13/11/2013
+21:40
+Referee 1
+Referee 2
+Scorer
+Timekeeper
+
+0v0
+
+Silverbacks
+-006;Bob;Bib;33;0;0;0;0;0;0
+ Save Percentage: O shots
+Wolves
+-003;Bob;Bib;33;0;0;0;0;0;0
+ Save Percentage: O shots

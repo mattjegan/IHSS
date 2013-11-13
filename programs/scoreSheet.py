@@ -11,6 +11,7 @@ class Application(Frame):
         Frame.__init__(self, master)
         self.teamList = []
         self.pack()
+        self.maxTeamPlayers = 2
         self.loadData()
         self.gameNumber = int([line for line in open("gameNumber.txt", "rU")][0])
         self.teamNames = []
@@ -32,13 +33,20 @@ class Application(Frame):
 
         teams = []
         currentTeam = -1
+        players = 0
 
         for item in dataArray:
             if str(item)[0] != '-':
                 currentTeam += 1
                 newTeam = teamClass.Team(str(item).strip())
                 teams.append(newTeam)
+
+                if players > self.maxTeamPlayers:
+                    self.maxTeamPlayers = players
+
+                players = 0
             else:
+                players += 1
                 # (self, playerID, firstName, lastName, number, isGoalie=False)
                 playerData = [part for part in item.strip().split(';')]
 
@@ -263,7 +271,7 @@ class Application(Frame):
         self.team1subGameMis.grid(row=10, column=3)
 
         ## Create player list
-        self.team1list = Listbox(scorer, height=15)
+        self.team1list = Listbox(scorer, height=self.maxTeamPlayers)
         for i in (player.getFullName() for player in self.team1.players):
             self.team1list.insert(END, i)
         self.team1list.grid(row=2, column=1, rowspan=4, sticky=W+E+N+S)
@@ -362,7 +370,7 @@ class Application(Frame):
         self.team2subGameMis.grid(row=10, column=6)
 
         ## Create player list
-        self.team2list = Listbox(scorer, height=15)
+        self.team2list = Listbox(scorer, height=self.maxTeamPlayers)
         for i in (player.getFullName() for player in self.team2.players):
             self.team2list.insert(END, i)
         self.team2list.grid(row=2, column=4, rowspan=4, sticky=W+E+N+S)
