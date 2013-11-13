@@ -21,6 +21,7 @@ class Application(Frame):
         self.team2 = self.teamList[1]
         self.team1score = 0
         self.team2score = 0
+        self.actions = []
         self.createWidgets()
 
     def addTeam(self, team):
@@ -89,6 +90,7 @@ class Application(Frame):
         gameFile.write("\n")
         gameFile.write("\n")
 
+        ## Team 1 information
         gameFile.write(self.team1.teamName)
         for player in self.team1.players:
             gameFile.write("\n")
@@ -96,10 +98,21 @@ class Application(Frame):
 
         gameFile.write("\n")
 
+        ## Team 2 Information
         gameFile.write(self.team2.teamName)
         for player in self.team2.players:
             gameFile.write("\n")
             gameFile.write(player.saveData(True))
+
+        gameFile.write("\n\n")
+
+        ## Action summary
+        for e, item in enumerate(self.actions):
+            if item == "-":
+                del self.actions[e]
+                del self.actions[e-1]
+        for item in self.actions:
+            gameFile.write(item + "\n")
 
         gameFile.close()
 
@@ -408,96 +421,118 @@ class Application(Frame):
         self.resultLbl["text"] = str("Result: "+str(self.team1score)+"v"+str(self.team2score))
         playerIndex = self.team1list.curselection()[0]
         self.team1.players[int(playerIndex)].addGoal()
+        self.actions.append("-" + self.team1.players[int(playerIndex)].getFullName() + " scored:" + str(self.team1score) + "v" + str(self.team2score))
 
     def team1goalDown(self):
         self.team1score -= 1
         self.resultLbl["text"] = str("Result: "+str(self.team1score)+"v"+str(self.team2score))
         playerIndex = self.team1list.curselection()[0]
         self.team1.players[int(playerIndex)].subGoal()
+        self.actions.append("-")
 
     def team2goalUp(self):
         self.team2score += 1
         self.resultLbl["text"] = str("Result: "+str(self.team1score)+"v"+str(self.team2score))
         playerIndex = self.team2list.curselection()[0]
         self.team2.players[int(playerIndex)].addGoal()
+        self.actions.append("-" + self.team1.players[int(playerIndex)].getFullName() + " scored:" + str(self.team1score) + "v" + str(self.team2score))
 
     def team2goalDown(self):
         self.team2score -= 1
         self.resultLbl["text"] = str("Result: "+str(self.team1score)+"v"+str(self.team2score))
         playerIndex = self.team2list.curselection()[0]
         self.team2.players[int(playerIndex)].subGoal()
+        self.actions.append("-")
 
     def team1assistUp(self):
         playerIndex = self.team1list.curselection()[0]
         self.team1.players[int(playerIndex)].addAssist()
+        self.actions.append("-" + self.team1.players[int(playerIndex)].getFullName() + " gained an assist")
 
     def team1assistDown(self):
         playerIndex = self.team1list.curselection()[0]
         self.team1.players[int(playerIndex)].subAssist()
+        self.actions.append("-")
 
     def team2assistUp(self):
         playerIndex = self.team2list.curselection()[0]
         self.team2.players[int(playerIndex)].addAssist()
+        self.actions.append("-" + self.team2.players[int(playerIndex)].getFullName() + " gained an assist")
 
     def team2assistDown(self):
         playerIndex = self.team2list.curselection()[0]
         self.team2.players[int(playerIndex)].subAssist()
+        self.actions.append("-")
 
     def team1ShotsOnUp(self):
         playerIndex = self.team1list.curselection()[0]
         self.team1.players[int(playerIndex)].addShotsOn()
+        self.actions.append("-" + self.team1.players[int(playerIndex)].getFullName() + " made a save")
 
     def team1ShotsOnDown(self):
         playerIndex = self.team1list.curselection()[0]
         self.team1.players[int(playerIndex)].subShotsOn()
+        self.actions.append("-")
 
     def team2ShotsOnUp(self):
         playerIndex = self.team2list.curselection()[0]
         self.team2.players[int(playerIndex)].addShotsOn()
+        self.actions.append("-" + self.team2.players[int(playerIndex)].getFullName() + " made a save")
 
     def team2ShotsOnDown(self):
         playerIndex = self.team2list.curselection()[0]
         self.team2.players[int(playerIndex)].subShotsOn()
+        self.actions.append("-")
 
     def team1missesUp(self):
         playerIndex = self.team1list.curselection()[0]
         self.team1.players[int(playerIndex)].addMiss()
+        self.actions.append("-" + self.team1.players[int(playerIndex)].getFullName() + " was scored on")
 
     def team1missesDown(self):
         playerIndex = self.team1list.curselection()[0]
         self.team1.players[int(playerIndex)].subMiss()
+        self.actions.append("-")
 
     def team2missesUp(self):
         playerIndex = self.team2list.curselection()[0]
         self.team2.players[int(playerIndex)].addMiss()
+        self.actions.append("-" + self.team2.players[int(playerIndex)].getFullName() + " was scored on")
 
     def team2missesDown(self):
         playerIndex = self.team2list.curselection()[0]
         self.team2.players[int(playerIndex)].subMiss()
+        self.actions.append("-")
 
     def team1MinorUp(self):
         playerIndex = self.team1list.curselection()[0]
         self.team1.players[int(playerIndex)].addMinor()
+        self.actions.append("-" + self.team1.players[int(playerIndex)].getFullName() + " gained a minor")
 
     def team1MinorDown(self):
         playerIndex = self.team1list.curselection()[0]
         self.team1.players[int(playerIndex)].subMinor()
+        self.actions.append("-")
 
     def team1MajorUp(self):
         playerIndex = self.team1list.curselection()[0]
         self.team1.players[int(playerIndex)].addMajor()
+        self.actions.append("-" + self.team1.players[int(playerIndex)].getFullName() + " gained a major")
 
     def team1MajorDown(self):
         playerIndex = self.team1list.curselection()[0]
         self.team1.players[int(playerIndex)].subMajor()
+        self.actions.append("-")
 
     def team1MisconUp(self):
         playerIndex = self.team1list.curselection()[0]
         self.team1.players[int(playerIndex)].addMisconduct()
+        self.actions.append("-" + self.team1.players[int(playerIndex)].getFullName() + " gained a misconduct penalty")
 
     def team1MisconDown(self):
         playerIndex = self.team1list.curselection()[0]
         self.team1.players[int(playerIndex)].subMisconduct()
+        self.actions.append("-")
 
     def team1MatchUp(self):
         playerIndex = self.team1list.curselection()[0]
@@ -508,10 +543,12 @@ class Application(Frame):
         remainder = 48 - minutes
 
         self.team1.players[int(playerIndex)].addMatch(remainder)
+        self.actions.append("-" + self.team1.players[int(playerIndex)].getFullName() + " gained a match penalty")
 
     def team1MatchDown(self):
         playerIndex = self.team1list.curselection()[0]
         self.team1.players[int(playerIndex)].subMatch()
+        self.actions.append("-")
 
     def team1GameMisUp(self):
         playerIndex = self.team1list.curselection()[0]
@@ -522,34 +559,42 @@ class Application(Frame):
         remainder = 48 - minutes
 
         self.team1.players[int(playerIndex)].addGameMis(remainder)
+        self.actions.append("-" + self.team1.players[int(playerIndex)].getFullName() + " gained a game misconduct penalty")
 
     def team1GameMisDown(self):
         playerIndex = self.team1list.curselection()[0]
         self.team1.players[int(playerIndex)].subGameMis()
+        self.actions.append("-")
 
     def team2MinorUp(self):
         playerIndex = self.team1list.curselection()[0]
         self.team2.players[int(playerIndex)].addMinor()
+        self.actions.append("-" + self.team2.players[int(playerIndex)].getFullName() + " gained a minor")
 
     def team2MinorDown(self):
         playerIndex = self.team1list.curselection()[0]
         self.team2.players[int(playerIndex)].subMinor()
+        self.actions.append("-")
 
     def team2MajorUp(self):
         playerIndex = self.team1list.curselection()[0]
         self.team2.players[int(playerIndex)].addMajor()
+        self.actions.append("-" + self.team2.players[int(playerIndex)].getFullName() + " gained a major")
 
     def team2MajorDown(self):
         playerIndex = self.team1list.curselection()[0]
         self.team2.players[int(playerIndex)].subMajor()
+        self.actions.append("-")
 
     def team2MisconUp(self):
         playerIndex = self.team1list.curselection()[0]
         self.team2.players[int(playerIndex)].addMisconduct()
+        self.actions.append("-" + self.team2.players[int(playerIndex)].getFullName() + " gained a misconduct penalty")
 
     def team2MisconDown(self):
         playerIndex = self.team1list.curselection()[0]
         self.team2.players[int(playerIndex)].subMisconduct()
+        self.actions.append("-")
 
     def team2MatchUp(self):
         playerIndex = self.team1list.curselection()[0]
@@ -560,10 +605,12 @@ class Application(Frame):
         remainder = 48 - minutes
 
         self.team2.players[int(playerIndex)].addMatch(remainder)
+        self.actions.append("-" + self.team2.players[int(playerIndex)].getFullName() + " gained a match penalty")
 
     def team2MatchDown(self):
         playerIndex = self.team1list.curselection()[0]
         self.team2.players[int(playerIndex)].subMatch()
+        self.actions.append("-")
 
     def team2GameMisUp(self):
         playerIndex = self.team1list.curselection()[0]
@@ -574,10 +621,12 @@ class Application(Frame):
         remainder = 48 - minutes
 
         self.team2.players[int(playerIndex)].addGameMis(remainder)
+        self.actions.append("-" + self.team2.players[int(playerIndex)].getFullName() + " gained a game misconduct penalty")
 
     def team2GameMisDown(self):
         playerIndex = self.team1list.curselection()[0]
         self.team2.players[int(playerIndex)].subGameMis()
+        self.actions.append("-")
 
     def endGameProc(self):
         self.saveData()
