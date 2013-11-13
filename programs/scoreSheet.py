@@ -218,7 +218,7 @@ class Application(Frame):
         self.team1missmin.grid(row=5, column=3, sticky=N)
 
         ## Create player list
-        self.team1list = Listbox(scorer)
+        self.team1list = Listbox(scorer, height=15)
         for i in (player.getFullName() for player in self.team1.players):
             self.team1list.insert(END, i)
         self.team1list.grid(row=2, column=1, rowspan=4, sticky=W+E+N+S)
@@ -277,7 +277,7 @@ class Application(Frame):
         self.team2missmin.grid(row=5, column=6, sticky=N)
 
         ## Create player list
-        self.team2list = Listbox(scorer)
+        self.team2list = Listbox(scorer, height=15)
         for i in (player.getFullName() for player in self.team2.players):
             self.team2list.insert(END, i)
         self.team2list.grid(row=2, column=4, rowspan=4, sticky=W+E+N+S)

@@ -77,37 +77,37 @@ class Application(Frame):
         self.addPlayer = Button(self, width=20)
         self.addPlayer["text"] = "Add Player"
         self.addPlayer["command"] = self.addPlayerCom
-        self.addPlayer.grid(row=2, column=2, sticky=S)
+        self.addPlayer.grid(row=2, column=3, sticky=S)
 
         ## Delete Player
         self.delPlayer = Button(self, width=20)
         self.delPlayer["text"] = "Delete Player"
         self.delPlayer["command"] = self.delPlayerCom
-        self.delPlayer.grid(row=3, column=2, sticky=S)
+        self.delPlayer.grid(row=3, column=3, sticky=S)
 
         ## Add Team
         self.addTeamBtn = Button(self, width=20)
         self.addTeamBtn["text"] = "Add Team"
         self.addTeamBtn["command"] = self.addTeamCom
-        self.addTeamBtn.grid(row=4, column=2, sticky=S)
+        self.addTeamBtn.grid(row=4, column=3, sticky=S)
 
         ## Delete Team
         self.delTeamBtn = Button(self, width=20)
         self.delTeamBtn["text"] = "Delete Team"
         self.delTeamBtn["command"] = self.delTeamCom
-        self.delTeamBtn.grid(row=5, column=2, sticky=S)
+        self.delTeamBtn.grid(row=5, column=3, sticky=S)
 
         ## Edit Player
         self.editBtn = Button(self, width=20)
         self.editBtn["text"] = "Edit Player"
         self.editBtn["command"] = self.editPlayer
-        self.editBtn.grid(row=6, column=2, sticky=S)
+        self.editBtn.grid(row=6, column=3, sticky=S)
 
         ## Create player list
-        self.team1list = Listbox(self)
+        self.team1list = Listbox(self, height=15)
         for i in (player.getFullName() for player in self.team1.players):
             self.team1list.insert(END, i)
-        self.team1list.grid(row=2, column=1, rowspan=5, sticky=W+E+N+S)
+        self.team1list.grid(row=2, column=1, rowspan=6, sticky=W+E+N+S)
 
     def _updatecb1(self, evt):
         changedTo = evt.widget.get()
