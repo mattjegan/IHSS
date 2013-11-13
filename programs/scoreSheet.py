@@ -135,8 +135,8 @@ class Application(Frame):
         self.timeLbl = Label(timeDate, text="Time: ").grid(row=1, column=0)
         self.timeVar = StringVar()
         self.timeEntry = Entry(timeDate, textvariable=self.timeVar).grid(row=1, column=1)
-        currentTime = str(datetime.datetime.now().hour) + ":" + str(datetime.datetime.now().minute)
-        self.timeVar.set(currentTime)
+        self.gameStart = datetime.datetime.now().time()
+        self.timeVar.set(str(self.gameStart).split()[0][:-10])
 
         self.resultLbl = Label(timeDate)
         self.resultLbl["text"] = "Result: "+str(self.team1score)+"v"+str(self.team2score)
@@ -223,43 +223,43 @@ class Application(Frame):
         self.team1missmin.grid(row=5, column=3, sticky=N)
         ## Add Minor
         self.team1addMinor = Button(scorer, width=5, text="+Minor")
-        self.team1addMinor["command"] = None
+        self.team1addMinor["command"] = self.team1MinorUp
         self.team1addMinor.grid(row=6, column=2)
         ## Sub Minor
         self.team1subMinor = Button(scorer, width=5, text="-Minor")
-        self.team1subMinor["command"] = None
+        self.team1subMinor["command"] = self.team1MinorDown
         self.team1subMinor.grid(row=6, column=3)
         ## Add Major
         self.team1addMajor = Button(scorer, width=5, text="+Major")
-        self.team1addMajor["command"] = None
+        self.team1addMajor["command"] = self.team1MajorUp
         self.team1addMajor.grid(row=7, column=2)
         ## Sub Major
         self.team1subMajor = Button(scorer, width=5, text="-Major")
-        self.team1subMajor["command"] = None
+        self.team1subMajor["command"] = self.team1MajorDown
         self.team1subMajor.grid(row=7, column=3)
         ## Add Misconduct
         self.team1addMiscon = Button(scorer, text="+Miscon")
-        self.team1addMiscon["command"] = None
+        self.team1addMiscon["command"] = self.team1MisconUp
         self.team1addMiscon.grid(row=8, column=2)
         ## Sub Misconduct
         self.team1subMiscon = Button(scorer, text="-Miscon")
-        self.team1subMiscon["command"] = None
+        self.team1subMiscon["command"] = self.team1MisconDown
         self.team1subMiscon.grid(row=8, column=3)
         ## Add Match
         self.team1addMatch = Button(scorer, text="+Match")
-        self.team1addMatch["command"] = None
+        self.team1addMatch["command"] = self.team1MatchUp
         self.team1addMatch.grid(row=9, column=2)
         ## Sub Match
         self.team1subMatch = Button(scorer, text="-Match")
-        self.team1subMatch["command"] = None
+        self.team1subMatch["command"] = self.team1MajorDown
         self.team1subMatch.grid(row=9, column=3)
         ## Add GameMisconduct
         self.team1addGameMis = Button(scorer, text="+GameMis")
-        self.team1addGameMis["command"] = None
+        self.team1addGameMis["command"] = self.team1GameMisUp
         self.team1addGameMis.grid(row=10, column=2)
         ## Sub GameMisconduct
         self.team1subGameMis = Button(scorer, text="-GameMis")
-        self.team1subGameMis["command"] = None
+        self.team1subGameMis["command"] = self.team1GameMisDown
         self.team1subGameMis.grid(row=10, column=3)
 
         ## Create player list
@@ -322,43 +322,43 @@ class Application(Frame):
         self.team2missmin.grid(row=5, column=6, sticky=N)
         ## Add Minor
         self.team2addMinor = Button(scorer, width=5, text="+Minor")
-        self.team2addMinor["command"] = None
+        self.team2addMinor["command"] = self.team2MinorUp
         self.team2addMinor.grid(row=6, column=5)
         ## Sub Minor
         self.team2subMinor = Button(scorer, width=5, text="-Minor")
-        self.team2subMinor["command"] = None
+        self.team2subMinor["command"] = self.team2MinorDown
         self.team2subMinor.grid(row=6, column=6)
         ## Add Major
         self.team2addMajor = Button(scorer, width=5, text="+Major")
-        self.team2addMajor["command"] = None
+        self.team2addMajor["command"] = self.team2MajorUp
         self.team2addMajor.grid(row=7, column=5)
         ## Sub Major
         self.team2subMajor = Button(scorer, width=5, text="-Major")
-        self.team2subMajor["command"] = None
+        self.team2subMajor["command"] = self.team2MajorDown
         self.team2subMajor.grid(row=7, column=6)
         ## Add Misconduct
         self.team2addMiscon = Button(scorer, text="+Miscon")
-        self.team2addMiscon["command"] = None
+        self.team2addMiscon["command"] = self.team2MisconUp
         self.team2addMiscon.grid(row=8, column=5)
         ## Sub Misconduct
         self.team2subMiscon = Button(scorer, text="-Miscon")
-        self.team2subMiscon["command"] = None
+        self.team2subMiscon["command"] = self.team2MisconDown
         self.team2subMiscon.grid(row=8, column=6)
         ## Add Match
         self.team2addMatch = Button(scorer, text="+Match")
-        self.team2addMatch["command"] = None
+        self.team2addMatch["command"] = self.team2MatchUp
         self.team2addMatch.grid(row=9, column=5)
         ## Sub Match
         self.team2subMatch = Button(scorer, text="-Match")
-        self.team2subMatch["command"] = None
+        self.team2subMatch["command"] = self.team2MatchDown
         self.team2subMatch.grid(row=9, column=6)
         ## Add GameMisconduct
         self.team2addGameMis = Button(scorer, text="+GameMis")
-        self.team2addGameMis["command"] = None
+        self.team2addGameMis["command"] = self.team2GameMisUp
         self.team2addGameMis.grid(row=10, column=5)
         ## Sub GameMisconduct
         self.team2subGameMis = Button(scorer, text="-GameMis")
-        self.team2subGameMis["command"] = None
+        self.team2subGameMis["command"] = self.team2GameMisDown
         self.team2subGameMis.grid(row=10, column=6)
 
         ## Create player list
@@ -466,6 +466,110 @@ class Application(Frame):
     def team2missesDown(self):
         playerIndex = self.team2list.curselection()[0]
         self.team2.players[int(playerIndex)].subMiss()
+
+    def team1MinorUp(self):
+        playerIndex = self.team1list.curselection()[0]
+        self.team1.players[int(playerIndex)].addMinor()
+
+    def team1MinorDown(self):
+        playerIndex = self.team1list.curselection()[0]
+        self.team1.players[int(playerIndex)].subMinor()
+
+    def team1MajorUp(self):
+        playerIndex = self.team1list.curselection()[0]
+        self.team1.players[int(playerIndex)].addMajor()
+
+    def team1MajorDown(self):
+        playerIndex = self.team1list.curselection()[0]
+        self.team1.players[int(playerIndex)].subMajor()
+
+    def team1MisconUp(self):
+        playerIndex = self.team1list.curselection()[0]
+        self.team1.players[int(playerIndex)].addMisconduct()
+
+    def team1MisconDown(self):
+        playerIndex = self.team1list.curselection()[0]
+        self.team1.players[int(playerIndex)].subMisconduct()
+
+    def team1MatchUp(self):
+        playerIndex = self.team1list.curselection()[0]
+
+        ctime = datetime.datetime.now().time()
+        diff = datetime.datetime.combine(datetime.date.today(), ctime) - datetime.datetime.combine(datetime.date.today(), self.gameStart)
+        minutes = int(str(diff).split(":")[1])
+        remainder = 48 - minutes
+
+        self.team1.players[int(playerIndex)].addMatch(remainder)
+
+    def team1MatchDown(self):
+        playerIndex = self.team1list.curselection()[0]
+        self.team1.players[int(playerIndex)].subMatch()
+
+    def team1GameMisUp(self):
+        playerIndex = self.team1list.curselection()[0]
+
+        ctime = datetime.datetime.now().time()
+        diff = datetime.datetime.combine(datetime.date.today(), ctime) - datetime.datetime.combine(datetime.date.today(), self.gameStart)
+        minutes = int(str(diff).split(":")[1])
+        remainder = 48 - minutes
+
+        self.team1.players[int(playerIndex)].addGameMis(remainder)
+
+    def team1GameMisDown(self):
+        playerIndex = self.team1list.curselection()[0]
+        self.team1.players[int(playerIndex)].subGameMis()
+
+    def team2MinorUp(self):
+        playerIndex = self.team1list.curselection()[0]
+        self.team2.players[int(playerIndex)].addMinor()
+
+    def team2MinorDown(self):
+        playerIndex = self.team1list.curselection()[0]
+        self.team2.players[int(playerIndex)].subMinor()
+
+    def team2MajorUp(self):
+        playerIndex = self.team1list.curselection()[0]
+        self.team2.players[int(playerIndex)].addMajor()
+
+    def team2MajorDown(self):
+        playerIndex = self.team1list.curselection()[0]
+        self.team2.players[int(playerIndex)].subMajor()
+
+    def team2MisconUp(self):
+        playerIndex = self.team1list.curselection()[0]
+        self.team2.players[int(playerIndex)].addMisconduct()
+
+    def team2MisconDown(self):
+        playerIndex = self.team1list.curselection()[0]
+        self.team2.players[int(playerIndex)].subMisconduct()
+
+    def team2MatchUp(self):
+        playerIndex = self.team1list.curselection()[0]
+
+        ctime = datetime.datetime.now().time()
+        diff = datetime.datetime.combine(datetime.date.today(), ctime) - datetime.datetime.combine(datetime.date.today(), self.gameStart)
+        minutes = int(str(diff).split(":")[2].split(".")[0])
+        remainder = 48 - minutes
+
+        self.team2.players[int(playerIndex)].addMatch(remainder)
+
+    def team2MatchDown(self):
+        playerIndex = self.team1list.curselection()[0]
+        self.team2.players[int(playerIndex)].subMatch()
+
+    def team2GameMisUp(self):
+        playerIndex = self.team1list.curselection()[0]
+
+        ctime = datetime.datetime.now().time()
+        diff = datetime.datetime.combine(datetime.date.today(), ctime) - datetime.datetime.combine(datetime.date.today(), self.gameStart)
+        minutes = int(str(diff).split(":")[2].split(".")[0])
+        remainder = 48 - minutes
+
+        self.team2.players[int(playerIndex)].addGameMis(remainder)
+
+    def team2GameMisDown(self):
+        playerIndex = self.team1list.curselection()[0]
+        self.team2.players[int(playerIndex)].subGameMis()
 
     def endGameProc(self):
         self.saveData()
