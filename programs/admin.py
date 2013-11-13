@@ -292,23 +292,43 @@ class newPlayerDialog(Frame):
         self.assistsField = Entry(self)
         self.assistsField.grid(row=6, column=1)
 
+        ## Shots On Label
+        self.shotsOnLbl = Label(self, text="Shots On:")
+        self.shotsOnLbl.grid(row=7, column=0)
+
+        ## Shots On Field
+        self.shotsOnFld = Entry(self)
+        self.shotsOnFld.grid(row=7, column=1)
+
+        ## Misses Label
+        self.missesLbl = Label(self, text="Misses:")
+        self.missesLbl.grid(row=8, column=0)
+
+        ## Misses Field
+        self.missesFld = Entry(self)
+        self.missesFld.grid(row=8, column=1)
+
+        ## Goalie Label
+        self.goalieLbl = Label(self, text="Goalie:")
+        self.goalieLbl.grid(row=9, column=0)
+
         ## Goalie combobox
         self.goalieChk = ttk.Combobox(self)
         self.goalieChk["values"] = ("No", "Yes")
         self.goalieChk.current(0)
-        self.goalieChk.grid(row=7, column=0, columnspan=2)
+        self.goalieChk.grid(row=9, column=1, columnspan=2)
         
         ## Cancel button
         self.cancelBtn = Button(self)
         self.cancelBtn["text"] = "Cancel"
         self.cancelBtn["command"] = self.quit
-        self.cancelBtn.grid(row=8, column=0, sticky=E)
+        self.cancelBtn.grid(row=10, column=0, sticky=E)
 
         ## Confirm button
         self.confirmBtn = Button(self)
         self.confirmBtn["text"] = "Confirm"
         self.confirmBtn["command"] = self.confirmPlayer
-        self.confirmBtn.grid(row=8, column=1, sticky=W)
+        self.confirmBtn.grid(row=10, column=1, sticky=W)
 
     def confirmPlayer(self):
         # Create player
@@ -319,13 +339,15 @@ class newPlayerDialog(Frame):
         games = 0
         goals = self.goalsField.get()
         assists = self.assistsField.get()
+        shotsOn = self.shotsOnFld.get()
+        misses = self.missesFld.get()
         if self.goalieChk.get() == "Yes":
             isGoalie = 1
         elif self.goalieChk.get() == "No":
             isGoalie = 0
         else:
             isGoalie = 0
-        self.player = playerClass.Player(playerID, firstName, lastName, number, games, goals, assists, isGoalie)
+        self.player = playerClass.Player(playerID, firstName, lastName, number, games, goals, assists, shotsOn, misses, isGoalie)
         self.quit()
 
     def getTeam(self):
@@ -442,6 +464,28 @@ class newEditPlayerDialog(Frame):
         self.assistsField.insert(0, self.player.assists)
         self.assistsField.grid(row=6, column=1)
 
+        ## Shots On Label
+        self.shotsOnLbl = Label(self, text="Shots On:")
+        self.shotsOnLbl.grid(row=7, column=0)
+
+        ## Shots On Field
+        self.shotsOnFld = Entry(self)
+        self.shotsOnFld.insert(0, self.player.shotsOn)
+        self.shotsOnFld.grid(row=7, column=1)
+
+        ## Misses Label
+        self.missesLbl = Label(self, text="Misses:")
+        self.missesLbl.grid(row=8, column=0)
+
+        ## Misses Field
+        self.missesFld = Entry(self)
+        self.missesFld.insert(0, self.player.misses)
+        self.missesFld.grid(row=8, column=1)
+
+        ## Goalie Label
+        self.goalieLbl = Label(self, text="Goalie:")
+        self.goalieLbl.grid(row=9, column=0)
+
         ## Goalie combobox
         self.goalieChk = ttk.Combobox(self)
         self.goalieChk["values"] = ("No", "Yes")
@@ -450,19 +494,19 @@ class newEditPlayerDialog(Frame):
             self.goalieChk.current(1)
         else:
             self.goalieChk.current(0)
-        self.goalieChk.grid(row=7, column=0, columnspan=2)
+        self.goalieChk.grid(row=9, column=1, columnspan=2)
         
         ## Cancel button
         self.cancelBtn = Button(self)
         self.cancelBtn["text"] = "Cancel"
         self.cancelBtn["command"] = self.quit
-        self.cancelBtn.grid(row=8, column=0, sticky=E)
+        self.cancelBtn.grid(row=10, column=0, sticky=E)
 
         ## Confirm button
         self.confirmBtn = Button(self)
         self.confirmBtn["text"] = "Confirm"
         self.confirmBtn["command"] = self.confirmPlayer
-        self.confirmBtn.grid(row=8, column=1, sticky=W)
+        self.confirmBtn.grid(row=10, column=1, sticky=W)
 
     def confirmPlayer(self):
         # Create player
