@@ -39,14 +39,16 @@ class Application(Frame):
                 newTeam = teamClass.Team(str(item).strip())
                 teams.append(newTeam)
             else:
-                # (self, firstName, lastName, number, isGoalie=False)
+                # (self, playerID, firstName, lastName, number, isGoalie=False)
                 playerData = [part for part in item.strip().split(';')]
+
+                # Remove minus sign
                 playerData[0] = playerData[0][1:]
-                if int(playerData[6]) == 0:
-                    playerData[6] = False
+                if int(playerData[-1]) == 0:
+                    playerData[-1] = False
                 else:
-                    playerData[6] = True
-                newPlayer = playerClass.Player(playerData[0], playerData[1], int(playerData[2]), int(playerData[3]), int(playerData[4]), int(playerData[5]), int(playerData[6]))
+                    playerData[-1] = True
+                newPlayer = playerClass.Player(playerData[0], playerData[1], playerData[2], int(playerData[3]), int(playerData[4]), int(playerData[5]), int(playerData[6]), int(playerData[7]))
                 # Assign to team
                 teams[currentTeam].addPlayer(newPlayer)
 

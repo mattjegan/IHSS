@@ -1,0 +1,15 @@
+4
+13/11/2013
+12:36
+Referee 1
+Referee 2
+Scorer
+Timekeeper
+
+0v0
+
+Assassins
+-001;Matthew;Egan;80;0;0;0;0
+-002;Alex;MacKenzie;55;0;0;0;0
+Wolves
+-003;Bob;Bib;33;0;0;0;0

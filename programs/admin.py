@@ -27,6 +27,8 @@ class Application(Frame):
         teams = []
         currentTeam = -1
 
+        self.maxNumber = 0
+
         for item in dataArray:
             if str(item)[0] != '-':
                 currentTeam += 1
@@ -35,12 +37,18 @@ class Application(Frame):
             else:
                 # (self, firstName, lastName, number, isGoalie=False)
                 playerData = [part for part in item.strip().split(';')]
+
+                # Remove minus sign
                 playerData[0] = playerData[0][1:]
-                if int(playerData[6]) == 0:
-                    playerData[6] = False
+
+                if int(playerData[0]) > self.maxNumber:
+                    self.maxNumber = int(playerData[0]) 
+
+                if int(playerData[-1]) == 0:
+                    playerData[-1] = False
                 else:
-                    playerData[6] = True
-                newPlayer = playerClass.Player(playerData[0], playerData[1], int(playerData[2]), int(playerData[3]), int(playerData[4]), int(playerData[5]), int(playerData[6]))
+                    playerData[-1] = True
+                newPlayer = playerClass.Player(playerData[0], playerData[1], playerData[2], int(playerData[3]), int(playerData[4]), int(playerData[5]), int(playerData[6]), int(playerData[7]))
                 # Assign to team
                 teams[currentTeam].addPlayer(newPlayer)
 
@@ -124,7 +132,7 @@ class Application(Frame):
         ## Create new dialog window for entry
         playerDialogRoot = Tk()
         playerDialogRoot.title("New Player")
-        playerDialog = newPlayerDialog(self.teamNames, master=playerDialogRoot)
+        playerDialog = newPlayerDialog(self.teamNames, self.maxNumber, master=playerDialogRoot)
         playerDialog.mainloop()
         playerData = playerDialog.getPlayer()
         teamToPlace = playerDialog.getTeam()
@@ -219,9 +227,10 @@ class Application(Frame):
             pass
 
 class newPlayerDialog(Frame):
-    def __init__(self, teamNames, master=None):
+    def __init__(self, teamNames, maxNumber, master=None):
         Frame.__init__(self, master)
         self.teamNames = teamNames
+        self.maxNumber = maxNumber
         self.player = None
         self.pack()
         self.createWidgets()
@@ -303,6 +312,7 @@ class newPlayerDialog(Frame):
 
     def confirmPlayer(self):
         # Create player
+        playerID = ((3 - len(str(int(self.maxNumber) + 1))) * "0") + str(int(self.maxNumber) + 1)
         firstName = self.firstField.get()
         lastName = self.lastField.get()
         number = int(self.numberField.get())
@@ -315,7 +325,7 @@ class newPlayerDialog(Frame):
             isGoalie = 0
         else:
             isGoalie = 0
-        self.player = playerClass.Player(firstName, lastName, number, games, goals, assists, isGoalie)
+        self.player = playerClass.Player(playerID, firstName, lastName, number, games, goals, assists, isGoalie)
         self.quit()
 
     def getTeam(self):
@@ -365,6 +375,7 @@ class newEditPlayerDialog(Frame):
         self.teamNames = teamNames
         self.teamN = curTeam
         self.player = playerToEdit
+        self.playerID = playerToEdit.playerID
         self.pack()
         self.createWidgets()
 
@@ -467,7 +478,7 @@ class newEditPlayerDialog(Frame):
             isGoalie = 0
         else:
             isGoalie = 0
-        self.player = playerClass.Player(firstName, lastName, number, games, goals, assists, isGoalie)
+        self.player = playerClass.Player(self.playerID, firstName, lastName, number, games, goals, assists, isGoalie)
         self.quit()
 
     def _updateCb(self, evt):

@@ -1,5 +1,6 @@
 class Player():
-    def __init__(self, firstName, lastName, number, games, goals, assists, isGoalie=False):
+    def __init__(self, playerID, firstName, lastName, number, games, goals, assists, isGoalie=False):
+        self.playerID = playerID
         self.firstName = firstName
         self.lastName = lastName
         self.number = number
@@ -20,6 +21,8 @@ class Player():
         if self.isGoalie == True:
             return str(self.number) + " [G] " + self.firstName + " " + self.lastName
         else:
+            print self.firstName
+            print self.lastName
             return str(self.number) + " " + self.firstName + " " + self.lastName
     def addGoal(self):
         self.goals += 1
@@ -53,11 +56,11 @@ class Player():
     def saveData(self, inGame):
         if inGame == True:
             if self.isGoalie == False:
-                return "-" + self.firstName + ";" + self.lastName + ";"  + str(self.number) + ";" + str(self.games) + ";" + str(self.goalsThisGame) + ";" + str(self.assistsThisGame) + ";" + str(0)
+                return "-" + self.playerID + ";" + self.firstName + ";" + self.lastName + ";"  + str(self.number) + ";" + str(self.games) + ";" + str(self.goalsThisGame) + ";" + str(self.assistsThisGame) + ";" + str(0)
             elif self.isGoalie == True:
-                return "-" + self.firstName + ";" + self.lastName + ";"  + str(self.number) + ";" + str(self.games) + ";" + str(self.shotsOnThisGame) + ";" + str(self.missesThisGame) + ";" + str(1) + "\n" + str(self.getGoalieSavePercentage(inGame))
+                return "-" + self.playerID + ";" + self.firstName + ";" + self.lastName + ";"  + str(self.number) + ";" + str(self.games) + ";" + str(self.shotsOnThisGame) + ";" + str(self.missesThisGame) + ";" + str(1) + "\n" + str(self.getGoalieSavePercentage(inGame))
         else:
             if self.isGoalie == False:
-                return "-" + self.firstName + ";" + self.lastName + ";"  + str(self.number) + ";" + str(self.games) + ";" + str(self.goals) + ";" + str(self.assists) + ";" + str(0)
+                return "-" + self.playerID + ";" + self.firstName + ";" + self.lastName + ";"  + str(self.number) + ";" + str(self.games) + ";" + str(self.goals) + ";" + str(self.assists) + ";" + str(0)
             elif self.isGoalie == True:
-                return "-" + self.firstName + ";" + self.lastName + ";"  + str(self.number) + ";" + str(self.games) + ";" + str(self.shotsOn) + ";" + str(self.misses) + ";" + str(1)
+                return "-" + self.playerID + ";" + self.firstName + ";" + self.lastName + ";"  + str(self.number) + ";" + str(self.games) + ";" + str(self.shotsOn) + ";" + str(self.misses) + ";" + str(1)
