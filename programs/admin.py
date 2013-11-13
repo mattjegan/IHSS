@@ -162,6 +162,9 @@ class Application(Frame):
             playerIndex = self.team1list.curselection()[0]
             self.team1list.delete(int(playerIndex))
             self.team1.players.remove(self.team1.players[int(playerIndex)])
+            for team in teamList:
+                if team.teamName == team1.teamName:
+                    teamList[teamNames.index(team1.teamName)] = team1
         except:
             pass
 
