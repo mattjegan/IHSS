@@ -308,27 +308,67 @@ class newPlayerDialog(Frame):
         self.missesFld = Entry(self)
         self.missesFld.grid(row=8, column=1)
 
+        ## Minors Label
+        self.minorsLbl = Label(self, text="Minors:")
+        self.minorsLbl.grid(row=9, column=0)
+
+        ## Minors Field
+        self.minorsFld = Entry(self)
+        self.minorsFld.grid(row=9, column=1)
+
+        ## Majors Label
+        self.majorsLbl = Label(self, text="Majors:")
+        self.majorsLbl.grid(row=10, column=0)
+
+        ## Majors Field
+        self.majorsFld = Entry(self)
+        self.majorsFld.grid(row=10, column=1)
+
+        ## Misconducts Label
+        self.misconductsLbl = Label(self, text="Misconducts:")
+        self.misconductsLbl.grid(row=11, column=0)
+
+        ## Misconducts Field
+        self.misconductsFld = Entry(self)
+        self.misconductsFld.grid(row=11, column=1)
+
+        ## Matches Label
+        self.matchesLbl = Label(self, text="Matches:")
+        self.matchesLbl.grid(row=12, column=0)
+
+        ## Matches Field
+        self.matchesFld = Entry(self)
+        self.matchesFld.grid(row=12, column=1)
+
+        ## gameMisconducts Label
+        self.gameMisconductsLbl = Label(self, text="Game Misconducts:")
+        self.gameMisconductsLbl.grid(row=13, column=0)
+
+        ## gameMisconducts Field
+        self.gameMisconductsFld = Entry(self)
+        self.gameMisconductsFld.grid(row=13, column=1)
+
         ## Goalie Label
         self.goalieLbl = Label(self, text="Goalie:")
-        self.goalieLbl.grid(row=9, column=0)
+        self.goalieLbl.grid(row=14, column=0)
 
         ## Goalie combobox
         self.goalieChk = ttk.Combobox(self)
         self.goalieChk["values"] = ("No", "Yes")
         self.goalieChk.current(0)
-        self.goalieChk.grid(row=9, column=1, columnspan=2)
+        self.goalieChk.grid(row=14, column=1, columnspan=2)
         
         ## Cancel button
         self.cancelBtn = Button(self)
         self.cancelBtn["text"] = "Cancel"
         self.cancelBtn["command"] = self.quit
-        self.cancelBtn.grid(row=10, column=0, sticky=E)
+        self.cancelBtn.grid(row=15, column=0, sticky=E)
 
         ## Confirm button
         self.confirmBtn = Button(self)
         self.confirmBtn["text"] = "Confirm"
         self.confirmBtn["command"] = self.confirmPlayer
-        self.confirmBtn.grid(row=10, column=1, sticky=W)
+        self.confirmBtn.grid(row=15, column=1, sticky=W)
 
     def confirmPlayer(self):
         # Create player
@@ -347,7 +387,14 @@ class newPlayerDialog(Frame):
             isGoalie = 0
         else:
             isGoalie = 0
-        self.player = playerClass.Player(playerID, firstName, lastName, number, games, goals, assists, shotsOn, misses, isGoalie)
+
+        minors = int(self.minorsFld.get())
+        majors = int(self.majorsFld.get())
+        misconducts = int(self.misconductsFld.get())
+        matchs = int(self.matchesFld.get())
+        gameMisconducts = int(self.gameMisconductsFld.get())
+
+        self.player = playerClass.Player(playerID, firstName, lastName, number, games, goals, assists, shotsOn, misses, isGoalie, minors, majors, misconducts, matchs, gameMisconducts)
         self.quit()
 
     def getTeam(self):
@@ -482,9 +529,54 @@ class newEditPlayerDialog(Frame):
         self.missesFld.insert(0, self.player.misses)
         self.missesFld.grid(row=8, column=1)
 
+        ## Minors Label
+        self.minorsLbl = Label(self, text="Minors:")
+        self.minorsLbl.grid(row=9, column=0)
+
+        ## Minors Field
+        self.minorsFld = Entry(self)
+        self.minorsFld.insert(0, self.player.minors)
+        self.minorsFld.grid(row=9, column=1)
+
+        ## Majors Label
+        self.majorsLbl = Label(self, text="Majors:")
+        self.majorsLbl.grid(row=10, column=0)
+
+        ## Majors Field
+        self.majorsFld = Entry(self)
+        self.majorsFld.insert(0, self.player.majors)
+        self.majorsFld.grid(row=10, column=1)
+
+        ## Misconducts Label
+        self.misconductsLbl = Label(self, text="Misconducts:")
+        self.misconductsLbl.grid(row=11, column=0)
+
+        ## Misconducts Field
+        self.misconductsFld = Entry(self)
+        self.misconductsFld.insert(0, self.player.misconducts)
+        self.misconductsFld.grid(row=11, column=1)
+
+        ## Matches Label
+        self.matchesLbl = Label(self, text="Matches:")
+        self.matchesLbl.grid(row=12, column=0)
+
+        ## Matches Field
+        self.matchesFld = Entry(self)
+        self.matchesFld.insert(0, self.player.matches)
+        self.matchesFld.grid(row=12, column=1)
+
+        ## gameMisconducts Label
+        self.gameMisconductsLbl = Label(self, text="Game Misconducts:")
+        self.gameMisconductsLbl.grid(row=13, column=0)
+
+        ## gameMisconducts Field
+        self.gameMisconductsFld = Entry(self)
+        self.gameMisconductsFld.insert(0, self.player.gameMisconducts)
+        self.gameMisconductsFld.grid(row=13, column=1)
+
         ## Goalie Label
         self.goalieLbl = Label(self, text="Goalie:")
-        self.goalieLbl.grid(row=9, column=0)
+        self.goalieLbl.grid(row=14, column=0)
 
         ## Goalie combobox
         self.goalieChk = ttk.Combobox(self)
@@ -494,19 +586,19 @@ class newEditPlayerDialog(Frame):
             self.goalieChk.current(1)
         else:
             self.goalieChk.current(0)
-        self.goalieChk.grid(row=9, column=1, columnspan=2)
+        self.goalieChk.grid(row=14, column=1, columnspan=2)
         
         ## Cancel button
         self.cancelBtn = Button(self)
         self.cancelBtn["text"] = "Cancel"
         self.cancelBtn["command"] = self.quit
-        self.cancelBtn.grid(row=10, column=0, sticky=E)
+        self.cancelBtn.grid(row=15, column=0, sticky=E)
 
         ## Confirm button
         self.confirmBtn = Button(self)
         self.confirmBtn["text"] = "Confirm"
         self.confirmBtn["command"] = self.confirmPlayer
-        self.confirmBtn.grid(row=10, column=1, sticky=W)
+        self.confirmBtn.grid(row=15, column=1, sticky=W)
 
     def confirmPlayer(self):
         # Create player
@@ -522,7 +614,14 @@ class newEditPlayerDialog(Frame):
             isGoalie = 0
         else:
             isGoalie = 0
-        self.player = playerClass.Player(self.playerID, firstName, lastName, number, games, goals, assists, isGoalie)
+
+        minors = int(self.minorsFld.get())
+        majors = int(self.majorsFld.get())
+        misconducts = int(self.misconductsFld.get())
+        matchs = int(self.matchesFld.get())
+        gameMisconducts = int(self.gameMisconductsFld.get())
+
+        self.player = playerClass.Player(self.playerID, firstName, lastName, number, games, goals, assists, isGoalie, minors, majors, misconducts, matchs, gameMisconducts)
         self.quit()
 
     def _updateCb(self, evt):
