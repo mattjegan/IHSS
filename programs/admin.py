@@ -141,6 +141,7 @@ class Application(Frame):
         playerDialogRoot.title("New Player")
         playerDialog = newPlayerDialog(self.teamNames, self.maxNumber, master=playerDialogRoot)
         playerDialog.mainloop()
+        self.maxNumber = playerDialog.getMaxNumber()
         playerData = playerDialog.getPlayer()
         teamToPlace = playerDialog.getTeam()
         playerDialogRoot.destroy()
@@ -380,6 +381,7 @@ class newPlayerDialog(Frame):
     def confirmPlayer(self):
         # Create player
         playerID = ((3 - len(str(int(self.maxNumber) + 1))) * "0") + str(int(self.maxNumber) + 1)
+        self.maxNumber += 1
         firstName = self.firstField.get()
         lastName = self.lastField.get()
         number = int(self.numberField.get())
@@ -409,6 +411,9 @@ class newPlayerDialog(Frame):
 
     def getPlayer(self):
         return self.player
+
+    def getMaxNumber(self):
+        return self.maxNumber
 
 class newTeamDialog(Frame):
     def __init__(self, master=None):
