@@ -48,7 +48,7 @@ class Application(Frame):
                     playerData[-1] = False
                 else:
                     playerData[-1] = True
-                newPlayer = playerClass.Player(playerData[0], playerData[1], playerData[2], int(playerData[3]), int(playerData[4]), int(playerData[5]), int(playerData[6]), int(playerData[7]))
+                newPlayer = playerClass.Player(playerData[0], playerData[1], playerData[2], int(playerData[3]), int(playerData[4]), int(playerData[5]), int(playerData[6]), int(playerData[7]), int(playerData[8]), int(playerData[9]))
                 # Assign to team
                 teams[currentTeam].addPlayer(newPlayer)
 

@@ -48,7 +48,7 @@ class Application(Frame):
                     playerData[-1] = False
                 else:
                     playerData[-1] = True
-                newPlayer = playerClass.Player(playerData[0], playerData[1], playerData[2], int(playerData[3]), int(playerData[4]), int(playerData[5]), int(playerData[6]), int(playerData[7]))
+                newPlayer = playerClass.Player(playerData[0], playerData[1], playerData[2], int(playerData[3]), int(playerData[4]), int(playerData[5]), int(playerData[6]), int(playerData[7]), int(playerData[8]), int(playerData[9]))
                 # Assign to team
                 teams[currentTeam].addPlayer(newPlayer)
 
@@ -354,43 +354,35 @@ class Application(Frame):
 
     def team1ShotsOnUp(self):
         playerIndex = self.team1list.curselection()[0]
-        if self.team1.players[int(playerIndex)].isGoalie:
-            self.team1.players[int(playerIndex)].addShotsOn()
+        self.team1.players[int(playerIndex)].addShotsOn()
 
     def team1ShotsOnDown(self):
         playerIndex = self.team1list.curselection()[0]
-        if self.team1.players[int(playerIndex)].isGoalie:
-            self.team1.players[int(playerIndex)].subShotsOn()
+        self.team1.players[int(playerIndex)].subShotsOn()
 
     def team2ShotsOnUp(self):
         playerIndex = self.team2list.curselection()[0]
-        if self.team2.players[int(playerIndex)].isGoalie:
-            self.team2.players[int(playerIndex)].addShotsOn()
+        self.team2.players[int(playerIndex)].addShotsOn()
 
     def team2ShotsOnDown(self):
         playerIndex = self.team2list.curselection()[0]
-        if self.team2.players[int(playerIndex)].isGoalie:
-            self.team2.players[int(playerIndex)].subShotsOn()
+        self.team2.players[int(playerIndex)].subShotsOn()
 
     def team1missesUp(self):
         playerIndex = self.team1list.curselection()[0]
-        if self.team1.players[int(playerIndex)].isGoalie:
-            self.team1.players[int(playerIndex)].addMiss()
+        self.team1.players[int(playerIndex)].addMiss()
 
     def team1missesDown(self):
         playerIndex = self.team1list.curselection()[0]
-        if self.team1.players[int(playerIndex)].isGoalie:
-            self.team1.players[int(playerIndex)].subMiss()
+        self.team1.players[int(playerIndex)].subMiss()
 
     def team2missesUp(self):
         playerIndex = self.team2list.curselection()[0]
-        if self.team2.players[int(playerIndex)].isGoalie:
-            self.team2.players[int(playerIndex)].addMiss()
+        self.team2.players[int(playerIndex)].addMiss()
 
     def team2missesDown(self):
         playerIndex = self.team2list.curselection()[0]
-        if self.team2.players[int(playerIndex)].isGoalie:
-            self.team2.players[int(playerIndex)].subMiss()
+        self.team2.players[int(playerIndex)].subMiss()
 
     def endGameProc(self):
         self.saveData()
