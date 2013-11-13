@@ -21,8 +21,6 @@ class Player():
         if self.isGoalie == True:
             return str(self.number) + " [G] " + self.firstName + " " + self.lastName
         else:
-            print self.firstName
-            print self.lastName
             return str(self.number) + " " + self.firstName + " " + self.lastName
     def addGoal(self):
         self.goals += 1
