@@ -23,6 +23,8 @@ class Player():
         self.missesThisGame = 0
         self.goalsThisGame = 0
         self.assistsThisGame = 0
+
+        self.points = self.goals + self.assists
     def getFullName(self):
         if self.isGoalie == True:
             return str(self.number) + " [G] " + self.firstName + " " + self.lastName

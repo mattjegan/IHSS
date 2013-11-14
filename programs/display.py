@@ -99,14 +99,19 @@ def loadData(fileName):
 
         return teams, maxTeamPlayers
 
+def getFontWidth(size):
+    pygame.font.init()
+    return pygame.font.Font("Consolas.ttf", size).size('a')[0]
+
 ## Displays plain text on screen
 ## Used for debugging purposes only
 def writeText(screen, text, location, size):
     ## Initialise font engine
     pygame.font.init()
-
+    
     ## Define font and size
-    font = pygame.font.Font(None, size)
+    ## Consolas width = 29
+    font = pygame.font.Font("Consolas.ttf", size)
 
     ## Create screen object
     obj = font.render(text, 1, (255,0,0))
@@ -121,8 +126,11 @@ def displayAllTimePlayerStats(screen, teamsAllTime, maxTeamPlayers):
             amountOfPlayers += 1
 
     x = 0
+    maxName = 0
+    allPlayers = []
     for team in teamsAllTime:
         for player in team.players:
+            allPlayers.append(player)
             ## Draw rectangle
             width = WIDTH - (PADDINGX*2)
             height = (HEIGHT - TOPPADDINGY - (PADDINGY*2))/amountOfPlayers
@@ -134,10 +142,62 @@ def displayAllTimePlayerStats(screen, teamsAllTime, maxTeamPlayers):
 
             sizeOfText = height - (2*STATPAD)
 
-            ## Write stats
-            writeText(screen, player.saveData(False), (PADDINGX + 3 + 5, top + (height/2) - (sizeOfText/3)), sizeOfText)
+    ## Write stats
+    
+    
+    ## Write Names
+    x = 0
+    for player in allPlayers:
+        height = (HEIGHT - TOPPADDINGY - (PADDINGY*2))/amountOfPlayers
+        top = TOPPADDINGY + (x*height)
+        x += 1
+        sizeOfText = height - (2*STATPAD)
 
+        initX = PADDINGX + 3 + 5
+        initY = top + (height/2) - (sizeOfText/3)
+        
+        name = player.getFullName()
+        if len(name) > maxName:
+            maxName = len(name)
+        writeText(screen, player.getFullName(), (initX, initY), sizeOfText)
 
+    ## Write Goals
+    x = 0
+    for player in allPlayers:
+        newX = initX + PADDINGX + (maxName*getFontWidth(sizeOfText))
+        height = (HEIGHT - TOPPADDINGY - (PADDINGY*2))/amountOfPlayers
+        top = TOPPADDINGY + (x*height)
+        x += 1
+        sizeOfText = height - (2*STATPAD)
+        initY = top + (height/2) - (sizeOfText/3)
+
+        writeText(screen, str(player.goals), (newX, initY), sizeOfText)
+
+    ## Write Assists
+    initX = newX
+    x = 0
+    for player in allPlayers:
+        newX = initX + PADDINGX + (2*getFontWidth(sizeOfText))
+        height = (HEIGHT - TOPPADDINGY - (PADDINGY*2))/amountOfPlayers
+        top = TOPPADDINGY + (x*height)
+        x += 1
+        sizeOfText = height - (2*STATPAD)
+        initY = top + (height/2) - (sizeOfText/3)
+
+        writeText(screen, str(player.assists), (newX, initY), sizeOfText)
+
+    ## Write Points
+    initX = newX
+    x = 0
+    for player in allPlayers:
+        newX = initX + PADDINGX + (2*getFontWidth(sizeOfText))
+        height = (HEIGHT - TOPPADDINGY - (PADDINGY*2))/amountOfPlayers
+        top = TOPPADDINGY + (x*height)
+        x += 1
+        sizeOfText = height - (2*STATPAD)
+        initY = top + (height/2) - (sizeOfText/3)
+
+        writeText(screen, str(player.points), (newX, initY), sizeOfText)
 
 def displayGameStats():
     pass
