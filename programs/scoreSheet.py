@@ -22,6 +22,23 @@ class Application(Frame):
         self.team1score = 0
         self.team2score = 0
         self.actions = []
+
+        nullPlayer = playerClass.Player(0, "0", "0", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+
+        for player in self.team1.players:
+            if player.isGoalie:
+                self.team1currentGoalie = player
+                break
+            else:
+                self.team1currentGoalie = nullPlayer
+
+        for player in self.team2.players:
+            if player.isGoalie:
+                self.team2currentGoalie = player
+                break
+            else:
+                self.team2currentGoalie = nullPlayer
+
         self.createWidgets()
 
     def addTeam(self, team):
@@ -284,6 +301,11 @@ class Application(Frame):
         self.team1subGameMis["command"] = self.team1GameMisDown
         self.team1subGameMis.grid(row=10, column=3)
 
+        ## Set goalie button
+        self.team1setGoalie = Button(scorer, width=WIDTH, text="Set Goalie")
+        self.team1setGoalie["command"] = self.team1setActGoalie
+        self.team1setGoalie.grid(row=12, column=2)
+
         ## Create player list
         self.team1list = Listbox(scorer, height=self.maxTeamPlayers)
         for i in (player.getFullName() for player in self.team1.players):
@@ -291,7 +313,9 @@ class Application(Frame):
         self.team1list.grid(row=2, column=1, rowspan=9, sticky=W+E+N+S)
 
         ## Create goalie list
-        self.team1goalieLbl = Label(scorer, text="Goalies").grid(row=11, column=1)
+        self.team1goalieLbl = Label(scorer)
+        self.team1goalieLbl["text"] = str("Goalie: " + self.team1currentGoalie.getFullName())
+        self.team1goalieLbl.grid(row=11, column=1)
         self.team1goalielist = Listbox(scorer)
         for i in self.team1.players:
             if i.isGoalie:
@@ -391,6 +415,11 @@ class Application(Frame):
         self.team2subGameMis["command"] = self.team2GameMisDown
         self.team2subGameMis.grid(row=10, column=6)
 
+        ## Set goalie button
+        self.team2setGoalie = Button(scorer, width=WIDTH, text="Set Goalie")
+        self.team2setGoalie["command"] = self.team2setActGoalie
+        self.team2setGoalie.grid(row=12, column=5)
+
         ## Create player list
         self.team2list = Listbox(scorer, height=self.maxTeamPlayers)
         for i in (player.getFullName() for player in self.team2.players):
@@ -398,7 +427,9 @@ class Application(Frame):
         self.team2list.grid(row=2, column=4, rowspan=9, sticky=W+E+N+S)
 
         ## Create goalie list
-        self.team2goalieLbl = Label(scorer, text="Goalies").grid(row=11, column=4)
+        self.team2goalieLbl = Label(scorer)
+        self.team2goalieLbl["text"] = str("Goalie: " + self.team2currentGoalie.getFullName())
+        self.team2goalieLbl.grid(row=11, column=4)
         self.team2goalielist = Listbox(scorer)
         for i in self.team2.players:
             if i.isGoalie:
@@ -410,6 +441,18 @@ class Application(Frame):
         self.endGame["text"] = "End Game"
         self.endGame["command"] = self.endGameProc
         self.endGame.grid(row=3, column=0, sticky=N+S+E+W)
+
+    def team1setActGoalie(self):
+        playerIndex = self.team1goalielist.curselection()[0]
+        self.team1currentGoalie = self.team1.players[int(playerIndex)]
+        self.actions.append("-" + self.team1currentGoalie.getFullName() + " is the active goalie")
+        self.team1goalieLbl["text"]=str("Goalie: " + self.team1currentGoalie.getFullName())
+
+    def team2setActGoalie(self):
+        playerIndex = self.team2goalielist.curselection()[0]
+        self.team2currentGoalie = self.team2.players[int(playerIndex)]
+        self.actions.append("-" + self.team2currentGoalie.getFullName() + " is the active goalie")
+        self.team2goalieLbl["text"]=str("Goalie: " + self.team2currentGoalie.getFullName())
 
     def _updatecb1(self, evt):
         changedTo = evt.widget.get()

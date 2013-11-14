@@ -1,0 +1,20 @@
+52
+14/11/2013
+13:42
+Referee 1
+Referee 2
+Scorer
+Timekeeper
+
+0v0
+
+Jokers
+-004;Bob;Bib;33;0;0;0;0;0;1
+ Save Percentage: O shots
+-005;Tim;Russell;69;0;0;0;0;0;0
+ Save Percentage: O shots
+Wolves
+-003;Bob;Bib;33;0;0;0;0;0;0
+ Save Percentage: O shots
+
+-33 [G] Bob Bib is the active goalie
