@@ -251,15 +251,15 @@ class Application(Frame):
         self.team1savemin["command"] = self.team1ShotsOnDown
         self.team1savemin.grid(row=4, column=3, sticky=S)
         ## Miss Add
-        self.team1missadd = Button(scorer, width=WIDTH)
-        self.team1missadd["text"] = "+M"
-        self.team1missadd["command"] = self.team1missesUp
-        self.team1missadd.grid(row=5, column=2, sticky=N)
+        #self.team1missadd = Button(scorer, width=WIDTH)
+        #self.team1missadd["text"] = "+M"
+        #self.team1missadd["command"] = self.team1missesUp
+        #self.team1missadd.grid(row=5, column=2, sticky=N)
         ## Miss Minus
-        self.team1missmin = Button(scorer, width=WIDTH)
-        self.team1missmin["text"] = "-M"
-        self.team1missmin["command"] = self.team1missesDown
-        self.team1missmin.grid(row=5, column=3, sticky=N)
+        #self.team1missmin = Button(scorer, width=WIDTH)
+        #self.team1missmin["text"] = "-M"
+        #self.team1missmin["command"] = self.team1missesDown
+        #self.team1missmin.grid(row=5, column=3, sticky=N)
         ## Add Minor
         self.team1addMinor = Button(scorer, width=WIDTH, text="+Minor")
         self.team1addMinor["command"] = self.team1MinorUp
@@ -365,15 +365,15 @@ class Application(Frame):
         self.team2savemin["command"] = self.team2ShotsOnDown
         self.team2savemin.grid(row=4, column=6, sticky=S)
         ## Miss Add
-        self.team2missadd = Button(scorer, width=WIDTH)
-        self.team2missadd["text"] = "+M"
-        self.team2missadd["command"] = self.team2missesUp
-        self.team2missadd.grid(row=5, column=5, sticky=N)
+        #self.team2missadd = Button(scorer, width=WIDTH)
+        #self.team2missadd["text"] = "+M"
+        #self.team2missadd["command"] = self.team2missesUp
+        #self.team2missadd.grid(row=5, column=5, sticky=N)
         ## Miss Minus
-        self.team2missmin = Button(scorer, width=WIDTH)
-        self.team2missmin["text"] = "-M"
-        self.team2missmin["command"] = self.team2missesDown
-        self.team2missmin.grid(row=5, column=6, sticky=N)
+        #self.team2missmin = Button(scorer, width=WIDTH)
+        #self.team2missmin["text"] = "-M"
+        #self.team2missmin["command"] = self.team2missesDown
+        #self.team2missmin.grid(row=5, column=6, sticky=N)
         ## Add Minor
         self.team2addMinor = Button(scorer, width=WIDTH, text="+Minor")
         self.team2addMinor["command"] = self.team2MinorUp
@@ -491,6 +491,8 @@ class Application(Frame):
         self.resultLbl["text"] = str("Result: "+str(self.team1score)+"v"+str(self.team2score))
         playerIndex = self.team1list.curselection()[0]
         self.team1.players[int(playerIndex)].addGoal()
+        self.team2currentGoalie.addShotsOn()
+        self.team2currentGoalie.addMiss()
         self.actions.append("-" + self.team1.players[int(playerIndex)].getFullName() + " scored:" + str(self.team1score) + "v" + str(self.team2score))
 
     def team1goalDown(self):
@@ -498,6 +500,8 @@ class Application(Frame):
         self.resultLbl["text"] = str("Result: "+str(self.team1score)+"v"+str(self.team2score))
         playerIndex = self.team1list.curselection()[0]
         self.team1.players[int(playerIndex)].subGoal()
+        self.team2currentGoalie.subShotsOn()
+        self.team2currentGoalie.subMiss()
         self.actions.append("-")
 
     def team2goalUp(self):
@@ -505,12 +509,16 @@ class Application(Frame):
         self.resultLbl["text"] = str("Result: "+str(self.team1score)+"v"+str(self.team2score))
         playerIndex = self.team2list.curselection()[0]
         self.team2.players[int(playerIndex)].addGoal()
+        self.team1currentGoalie.addShotsOn()
+        self.team1currentGoalie.addMiss()
         self.actions.append("-" + self.team1.players[int(playerIndex)].getFullName() + " scored:" + str(self.team1score) + "v" + str(self.team2score))
 
     def team2goalDown(self):
         self.team2score -= 1
         self.resultLbl["text"] = str("Result: "+str(self.team1score)+"v"+str(self.team2score))
         playerIndex = self.team2list.curselection()[0]
+        self.team1currentGoalie.subShotsOn()
+        self.team1currentGoalie.subMiss()
         self.team2.players[int(playerIndex)].subGoal()
         self.actions.append("-")
 
@@ -535,44 +543,40 @@ class Application(Frame):
         self.actions.append("-")
 
     def team1ShotsOnUp(self):
-        playerIndex = self.team1list.curselection()[0]
-        self.team1.players[int(playerIndex)].addShotsOn()
-        self.actions.append("-" + self.team1.players[int(playerIndex)].getFullName() + " made a save")
+        self.team1currentGoalie.addShotsOn()
+        self.actions.append("-" + self.team1currentGoalie.getFullName() + " made a save")
 
     def team1ShotsOnDown(self):
-        playerIndex = self.team1list.curselection()[0]
-        self.team1.players[int(playerIndex)].subShotsOn()
+        self.team1currentGoalie.subShotsOn()
         self.actions.append("-")
 
     def team2ShotsOnUp(self):
-        playerIndex = self.team2list.curselection()[0]
-        self.team2.players[int(playerIndex)].addShotsOn()
-        self.actions.append("-" + self.team2.players[int(playerIndex)].getFullName() + " made a save")
+        self.team2currentGoalie.addShotsOn()
+        self.actions.append("-" + self.team2currentGoalie.getFullName() + " made a save")
 
     def team2ShotsOnDown(self):
-        playerIndex = self.team2list.curselection()[0]
-        self.team2.players[int(playerIndex)].subShotsOn()
+        self.team2currentGoalie.subShotsOn()
         self.actions.append("-")
 
-    def team1missesUp(self):
-        playerIndex = self.team1list.curselection()[0]
-        self.team1.players[int(playerIndex)].addMiss()
-        self.actions.append("-" + self.team1.players[int(playerIndex)].getFullName() + " was scored on")
+    #def team1missesUp(self):
+    #    playerIndex = self.team1list.curselection()[0]
+    #    self.team1.players[int(playerIndex)].addMiss()
+    #    self.actions.append("-" + self.team1.players[int(playerIndex)].getFullName() + " was scored on")
 
-    def team1missesDown(self):
-        playerIndex = self.team1list.curselection()[0]
-        self.team1.players[int(playerIndex)].subMiss()
-        self.actions.append("-")
+    #def team1missesDown(self):
+    #    playerIndex = self.team1list.curselection()[0]
+    #    self.team1.players[int(playerIndex)].subMiss()
+    #    self.actions.append("-")
 
-    def team2missesUp(self):
-        playerIndex = self.team2list.curselection()[0]
-        self.team2.players[int(playerIndex)].addMiss()
-        self.actions.append("-" + self.team2.players[int(playerIndex)].getFullName() + " was scored on")
+    #def team2missesUp(self):
+    #    playerIndex = self.team2list.curselection()[0]
+    #    self.team2.players[int(playerIndex)].addMiss()
+    #    self.actions.append("-" + self.team2.players[int(playerIndex)].getFullName() + " was scored on")
 
-    def team2missesDown(self):
-        playerIndex = self.team2list.curselection()[0]
-        self.team2.players[int(playerIndex)].subMiss()
-        self.actions.append("-")
+    #def team2missesDown(self):
+    #    playerIndex = self.team2list.curselection()[0]
+    #    self.team2.players[int(playerIndex)].subMiss()
+    #    self.actions.append("-")
 
     def team1MinorUp(self):
         playerIndex = self.team1list.curselection()[0]
