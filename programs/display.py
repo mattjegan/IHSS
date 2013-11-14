@@ -62,9 +62,9 @@ def main():
         currentScreen = 0
 
         ## Determine screen to show
-        if currentScreen == 0: displayAllTimePlayerStats(screen, teamsAllTime, maxTeamPlayers)
+        if currentScreen == 0: displayAllTimePlayerStats(screen, teamsAllTime, 5)
         elif currentScreen == 1: displayGameStats()
-        elif currentScreen == 2: displayAllTimeGoalieStats()
+        elif currentScreen == 2: displayAllTimeGoalieStats(screen, teamsAllTime, 5)
         elif currentScreen == 3: displayGoalieGameStats()
 
         ## Render screen
@@ -134,7 +134,7 @@ def writeText(screen, text, location, size):
     ## Render text on screen
     screen.blit(obj, location)
 
-def displayAllTimePlayerStats(screen, teamsAllTime, maxTeamPlayers):
+def displayAllTimePlayerStats(screen, teamsAllTime, amount):
     amountOfPlayers = 0
     for team in teamsAllTime:
         for player in team.players:
@@ -149,23 +149,27 @@ def displayAllTimePlayerStats(screen, teamsAllTime, maxTeamPlayers):
     ## Draw rectangles
     x = 0
     maxName = 0
+
     allPlayers = []
     for team in teamsAllTime:
         for player in team.players:
             allPlayers.append(player)
-            width = WIDTH - (PADDINGX*2)
-            height = (HEIGHT - TOPPADDINGY - (PADDINGY*2))/amountOfPlayers
-            left = PADDINGX
-            top = TOPPADDINGY + (x*height)
-            info = pygame.Rect(left, top, width, height)
-            pygame.draw.rect(screen, (255, 0, 0), info, 3)
-            x += 1
-
-            sizeOfText = height - (2*STATPAD)
 
     ## Sort players by points
     allPlayers.sort(key=operator.attrgetter('points'))
     allPlayers.reverse()
+    allPlayers = allPlayers[:amount]
+
+    for player in allPlayers:
+        width = WIDTH - (PADDINGX*2)
+        height = (HEIGHT - TOPPADDINGY - (PADDINGY*2))/amountOfPlayers
+        left = PADDINGX
+        top = TOPPADDINGY + (x*height)
+        info = pygame.Rect(left, top, width, height)
+        pygame.draw.rect(screen, (255, 0, 0), info, 3)
+        x += 1
+
+        sizeOfText = height - (2*STATPAD)
 
     ## Write stats
     titleY = TOPPADDINGY - height
@@ -240,8 +244,80 @@ def displayAllTimePlayerStats(screen, teamsAllTime, maxTeamPlayers):
 def displayGameStats():
     pass
 
-def displayAllTimeGoalieStats():
-    pass
+def displayAllTimeGoalieStats(screen, teamsAllTime, amount):
+    amountOfPlayers = 0
+    for team in teamsAllTime:
+        for player in team.players:
+            amountOfPlayers += 1
+
+    ## Draw title
+    titleText = "All Time Goalie Stats"
+    xPos = WIDTH/2 - getFontWidth(ALLTIMEPTITLE, titleText)/2
+    yPos = TOPPADDINGY/2/2 - getFontHeight(ALLTIMEPTITLE, titleText)/2
+    writeText(screen, titleText, (xPos, yPos), ALLTIMEPTITLE)
+
+    ## Draw rectangles
+    x = 0
+    maxName = 0
+
+    allPlayers = []
+    for team in teamsAllTime:
+        for player in team.players:
+            allPlayers.append(player)
+    
+    ## Sort players by points
+    allPlayers.sort(key=operator.attrgetter('savePercentage'))
+    allPlayers.reverse()
+    allPlayers = allPlayers[:amount]
+
+    for player in allPlayers:
+        width = WIDTH - (PADDINGX*2)
+        height = (HEIGHT - TOPPADDINGY - (PADDINGY*2))/amountOfPlayers
+        left = PADDINGX
+        top = TOPPADDINGY + (x*height)
+        info = pygame.Rect(left, top, width, height)
+        pygame.draw.rect(screen, (255, 0, 0), info, 3)
+        x += 1
+
+        sizeOfText = height - (2*STATPAD)
+
+    ## Write stats
+    titleY = TOPPADDINGY - height
+    bottom = top + height
+    ## Write Names
+    x = 0
+    for player in allPlayers:
+        top = TOPPADDINGY + (x*height)
+
+        initX = PADDINGX + 3 + 5
+        initY = top + (height/2) - (sizeOfText/3)
+        
+        if x == 1:
+            writeText(screen, "#  Name", (initX, titleY), sizeOfText)
+        x += 1
+
+        name = player.getFullName()
+        if len(name) > maxName:
+            maxName = len(name)
+        writeText(screen, player.getFullName(), (initX, initY), sizeOfText)
+
+    ## Draw vert
+    pygame.draw.line(screen, (255, 0, 0), (initX + PADDINGX + (2*getFontWidth(sizeOfText)), titleY), (initX + PADDINGX + (2*getFontWidth(sizeOfText)), bottom), 1)
+    ## Draw vert
+    pygame.draw.line(screen, (255, 0, 0), (initX + PADDINGX + (maxName*getFontWidth(sizeOfText)), titleY), (initX + PADDINGX + (maxName*getFontWidth(sizeOfText)), bottom), 1) 
+
+    ## Write Save Percentage
+    x = 0
+    for player in allPlayers:
+        newX = initX + PADDINGX + (maxName*getFontWidth(sizeOfText))
+        top = TOPPADDINGY + (x*height)
+        x += 1
+        initY = top + (height/2) - (sizeOfText/3)
+
+        if x == 1:
+            writeText(screen, "Save %", (newX, titleY), sizeOfText)
+
+        writeText(screen, str(player.savePercentage), (newX, initY), sizeOfText)
 
 def displayGoalieGameStats():
     pass

@@ -25,6 +25,7 @@ class Player():
         self.assistsThisGame = 0
 
         self.points = self.goals + self.assists
+        self.savePercentage = self.getGoalieSavePercentage(False)
     def getFullName(self):
         if self.isGoalie == True:
             return str(self.number) + " [G] " + self.firstName + " " + self.lastName
@@ -81,14 +82,14 @@ class Player():
     def getGoalieSavePercentage(self, inGame):
         if inGame == True:
             if self.shotsOnThisGame == 0:
-                return "O shots"
+                return 0
             else:
                 return 100*(1-(float(self.missesThisGame)/float(self.shotsOnThisGame)))
         else:
             if self.shotsOn == 0:
-                return "0 shots"
+                return 0
             else:
-                return 100*(1-(self.misses/self.shotsOn))
+                return 100*(1-(float(self.misses)/float(self.shotsOn)))
     def saveData(self, inGame):
         if inGame == True:
             return "-" + self.playerID + ";" + self.firstName + ";" + self.lastName + ";"  + str(self.number) + ";" + str(self.games) + ";" + str(self.goalsThisGame) + ";" + str(self.assistsThisGame) + ";" + str(self.shotsOnThisGame) + ";" + str(self.missesThisGame) + ";" + str(int(self.isGoalie)) + "\n Save Percentage: " + str(self.getGoalieSavePercentage(inGame))
