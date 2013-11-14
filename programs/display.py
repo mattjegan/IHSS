@@ -17,10 +17,10 @@ ALLTIMEPTITLE = 90
 def main():
     pygame.init()
 
-    global WIDTH
-    WIDTH = pygame.display.Info().current_w
-    global HEIGHT
-    HEIGHT = pygame.display.Info().current_h - 44
+    #global WIDTH
+    #WIDTH = pygame.display.Info().current_w
+    #global HEIGHT
+    #HEIGHT = pygame.display.Info().current_h - 44
 
     screen = pygame.display.set_mode((WIDTH, HEIGHT))
 

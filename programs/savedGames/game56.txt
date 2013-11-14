@@ -1,0 +1,59 @@
+56
+14/11/2013
+17:00
+Referee 1
+Referee 2
+Scorer
+Timekeeper
+
+2v0
+
+Assassins
+-001;Matthew;Egan;80;0;1;6;0;0;0
+ Save Percentage: 0
+-002;Alex;MacKenzie;55;0;0;0;0;0;0
+ Save Percentage: 0
+-007;Nathan;Struck;99;0;0;0;0;0;0
+ Save Percentage: 0
+-008;Tim;Russell;69;0;0;20;0;0;0
+ Save Percentage: 0
+Jokers
+-004;Bob;Bib;33;0;0;0;5;1;1
+ Save Percentage: 80.0
+-005;Tim;Russell;69;0;0;0;0;0;0
+ Save Percentage: 0
+
+-33 [G] Bob Bib is the active goalie
+-33 [G] Bob Bib made a save
+-33 [G] Bob Bib made a save
+-33 [G] Bob Bib made a save
+-33 [G] Bob Bib made a save
+-80 Matthew Egan scored:2v0
+-80 Matthew Egan scored:3v0
+-
+-80 Matthew Egan gained an assist
+-80 Matthew Egan gained an assist
+-80 Matthew Egan gained an assist
+-80 Matthew Egan gained an assist
+-80 Matthew Egan gained an assist
+-80 Matthew Egan gained an assist
+-69 Tim Russell gained an assist
+-69 Tim Russell gained an assist
+-69 Tim Russell gained an assist
+-69 Tim Russell gained an assist
+-69 Tim Russell gained an assist
+-69 Tim Russell gained an assist
+-69 Tim Russell gained an assist
+-69 Tim Russell gained an assist
+-69 Tim Russell gained an assist
+-69 Tim Russell gained an assist
+-69 Tim Russell gained an assist
+-69 Tim Russell gained an assist
+-69 Tim Russell gained an assist
+-69 Tim Russell gained an assist
+-69 Tim Russell gained an assist
+-69 Tim Russell gained an assist
+-69 Tim Russell gained an assist
+-69 Tim Russell gained an assist
+-69 Tim Russell gained an assist
+-69 Tim Russell gained an assist
