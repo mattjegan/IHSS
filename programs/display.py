@@ -56,16 +56,14 @@ def main():
         ## Determine intervals between screen change
         if currentTime - startTime > 5:
             currentScreen += 1
-            currentScreen = currentScreen % 4 ## Make between range 0 -> 3 inclusive
+            currentScreen = currentScreen % 2 ## Make between range 0 -> 3 inclusive
             startTime = time.time()
-
-        currentScreen = 0
 
         ## Determine screen to show
         if currentScreen == 0: displayAllTimePlayerStats(screen, teamsAllTime, 5)
-        elif currentScreen == 1: displayGameStats()
-        elif currentScreen == 2: displayAllTimeGoalieStats(screen, teamsAllTime, 5)
-        elif currentScreen == 3: displayGoalieGameStats()
+        #elif currentScreen == 1: displayGameStats()
+        elif currentScreen == 1: displayAllTimeGoalieStats(screen, teamsAllTime, 5)
+        #elif currentScreen == 3: displayGoalieGameStats()
 
         ## Render screen
         pygame.display.update()
