@@ -8,12 +8,18 @@ import teamClass
 WIDTH = 1280
 PADDINGX = 20
 HEIGHT = 720
-TOPPADDINGY = 100
+TOPPADDINGY = 200
 PADDINGY = 20
 STATPAD = 10
+ALLTIMEPTITLE = 90
 
 def main():
     pygame.init()
+
+    global WIDTH
+    WIDTH = pygame.display.Info().current_w
+    global HEIGHT
+    HEIGHT = pygame.display.Info().current_h - 44
 
     screen = pygame.display.set_mode((WIDTH, HEIGHT))
 
@@ -31,6 +37,10 @@ def main():
             if event.type == QUIT:
                 pygame.quit()
                 sys.exit()
+            if event.type == KEYDOWN:
+                if event.key == K_UP:
+                    pygame.quit()
+                    sys.exit()
 
         ## Get updated data
         teamsAllTime, maxTeamPlayers = loadData("teamData.txt")
@@ -99,9 +109,13 @@ def loadData(fileName):
 
         return teams, maxTeamPlayers
 
-def getFontWidth(size):
+def getFontWidth(size, text="a"):
     pygame.font.init()
-    return pygame.font.Font("Consolas.ttf", size).size('a')[0]
+    return pygame.font.Font("Consolas.ttf", size).size(text)[0]
+
+def getFontHeight(size, text="a"):
+    pygame.font.init()
+    return pygame.font.Font("Consolas.ttf", size).size(text)[1]
 
 ## Displays plain text on screen
 ## Used for debugging purposes only
@@ -125,13 +139,19 @@ def displayAllTimePlayerStats(screen, teamsAllTime, maxTeamPlayers):
         for player in team.players:
             amountOfPlayers += 1
 
+    ## Draw title
+    titleText = "All Time Player Stats"
+    xPos = WIDTH/2 - getFontWidth(ALLTIMEPTITLE, titleText)/2
+    yPos = TOPPADDINGY/2/2 - getFontHeight(ALLTIMEPTITLE, titleText)/2
+    writeText(screen, titleText, (xPos, yPos), ALLTIMEPTITLE)
+
+    ## Draw rectangles
     x = 0
     maxName = 0
     allPlayers = []
     for team in teamsAllTime:
         for player in team.players:
             allPlayers.append(player)
-            ## Draw rectangle
             width = WIDTH - (PADDINGX*2)
             height = (HEIGHT - TOPPADDINGY - (PADDINGY*2))/amountOfPlayers
             left = PADDINGX
@@ -143,59 +163,72 @@ def displayAllTimePlayerStats(screen, teamsAllTime, maxTeamPlayers):
             sizeOfText = height - (2*STATPAD)
 
     ## Write stats
-    
-    
+    titleY = TOPPADDINGY - height
+    bottom = top + height
     ## Write Names
     x = 0
     for player in allPlayers:
-        height = (HEIGHT - TOPPADDINGY - (PADDINGY*2))/amountOfPlayers
         top = TOPPADDINGY + (x*height)
-        x += 1
-        sizeOfText = height - (2*STATPAD)
 
         initX = PADDINGX + 3 + 5
         initY = top + (height/2) - (sizeOfText/3)
         
+        if x == 1:
+            writeText(screen, "#  Name", (initX, titleY), sizeOfText)
+        x += 1
+
         name = player.getFullName()
         if len(name) > maxName:
             maxName = len(name)
         writeText(screen, player.getFullName(), (initX, initY), sizeOfText)
 
+    ## Draw vert
+    pygame.draw.line(screen, (255, 0, 0), (initX + PADDINGX + (2*getFontWidth(sizeOfText)), titleY), (initX + PADDINGX + (2*getFontWidth(sizeOfText)), bottom), 1)
+    ## Draw vert
+    pygame.draw.line(screen, (255, 0, 0), (initX + PADDINGX + (maxName*getFontWidth(sizeOfText)), titleY), (initX + PADDINGX + (maxName*getFontWidth(sizeOfText)), bottom), 1) 
+
     ## Write Goals
     x = 0
     for player in allPlayers:
         newX = initX + PADDINGX + (maxName*getFontWidth(sizeOfText))
-        height = (HEIGHT - TOPPADDINGY - (PADDINGY*2))/amountOfPlayers
         top = TOPPADDINGY + (x*height)
         x += 1
-        sizeOfText = height - (2*STATPAD)
         initY = top + (height/2) - (sizeOfText/3)
+
+        if x == 1:
+            writeText(screen, "G", (newX, titleY), sizeOfText)
 
         writeText(screen, str(player.goals), (newX, initY), sizeOfText)
 
     ## Write Assists
     initX = newX
+    ## Draw vert
+    pygame.draw.line(screen, (255, 0, 0), (initX + PADDINGX + (2*getFontWidth(sizeOfText)), titleY), (initX + PADDINGX + (2*getFontWidth(sizeOfText)), bottom), 1)
     x = 0
     for player in allPlayers:
         newX = initX + PADDINGX + (2*getFontWidth(sizeOfText))
-        height = (HEIGHT - TOPPADDINGY - (PADDINGY*2))/amountOfPlayers
         top = TOPPADDINGY + (x*height)
         x += 1
-        sizeOfText = height - (2*STATPAD)
         initY = top + (height/2) - (sizeOfText/3)
+
+        if x == 1:
+            writeText(screen, "A", (newX, titleY), sizeOfText)
 
         writeText(screen, str(player.assists), (newX, initY), sizeOfText)
 
     ## Write Points
     initX = newX
+    ## Draw vert
+    pygame.draw.line(screen, (255, 0, 0), (initX + PADDINGX + (2*getFontWidth(sizeOfText)), titleY), (initX + PADDINGX + (2*getFontWidth(sizeOfText)), bottom), 1)
     x = 0
     for player in allPlayers:
         newX = initX + PADDINGX + (2*getFontWidth(sizeOfText))
-        height = (HEIGHT - TOPPADDINGY - (PADDINGY*2))/amountOfPlayers
         top = TOPPADDINGY + (x*height)
         x += 1
-        sizeOfText = height - (2*STATPAD)
         initY = top + (height/2) - (sizeOfText/3)
+
+        if x == 1:
+            writeText(screen, "P", (newX, titleY), sizeOfText)
 
         writeText(screen, str(player.points), (newX, initY), sizeOfText)
 
