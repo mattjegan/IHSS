@@ -1,0 +1,28 @@
+29
+13/11/2013
+23:31
+Referee 1
+Referee 2
+Scorer
+Timekeeper
+
+2v0
+
+Assassins
+-001;Matthew;Egan;80;0;2;0;0;0;0
+ Save Percentage: O shots
+-002;Alex;MacKenzie;55;0;0;2;0;0;0
+ Save Percentage: O shots
+-007;Nathan;Struck;99;0;0;0;0;0;0
+ Save Percentage: O shots
+-008;Tim;Russell;69;0;0;0;0;0;0
+ Save Percentage: O shots
+Wolves
+-003;Bob;Bib;33;0;0;0;0;0;0
+ Save Percentage: O shots
+
+-80 Matthew Egan scored:1v0
+-80 Matthew Egan scored:2v0
+-55 Alex MacKenzie gained an assist
+-55 Alex MacKenzie gained an assist
+-99 Nathan Struck gained a match penalty

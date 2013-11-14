@@ -136,6 +136,7 @@ class Application(Frame):
         dataFile.close()
 
     def createWidgets(self):
+        WIDTH = 10
         ## Date, time and officals area
         admin = Frame(self)
         admin.grid(row=0, column=0)
@@ -203,83 +204,83 @@ class Application(Frame):
         self.combo.grid(row=1, column=1)
 
         ## Goal Add
-        self.team1goaladd = Button(scorer, width=5)
+        self.team1goaladd = Button(scorer, width=WIDTH)
         self.team1goaladd["text"] = "+G"
         self.team1goaladd["command"] = self.team1goalUp
         self.team1goaladd.grid(row=2, column=2, sticky=S)
         ## Goal Minus
-        self.team1goalmin = Button(scorer, width=5)
+        self.team1goalmin = Button(scorer, width=WIDTH)
         self.team1goalmin["text"] = "-G"
         self.team1goalmin["command"] = self.team1goalDown
         self.team1goalmin.grid(row=2, column=3, sticky=S)
         ## Assist Add
-        self.team1assadd = Button(scorer, width=5)
+        self.team1assadd = Button(scorer, width=WIDTH)
         self.team1assadd["text"] = "+A"
         self.team1assadd["command"] = self.team1assistUp
         self.team1assadd.grid(row=3, column=2, sticky=N)
         ## Assist Minus
-        self.team1assmin = Button(scorer, width=5)
+        self.team1assmin = Button(scorer, width=WIDTH)
         self.team1assmin["text"] = "-A"
         self.team1assmin["command"] = self.team1assistDown
         self.team1assmin.grid(row=3, column=3, sticky=N)
         ## Saves Add
-        self.team1saveadd = Button(scorer, width=5)
+        self.team1saveadd = Button(scorer, width=WIDTH)
         self.team1saveadd["text"] = "+S"
         self.team1saveadd["command"] = self.team1ShotsOnUp
         self.team1saveadd.grid(row=4, column=2, sticky=S)
         ## Saves Minus
-        self.team1savemin = Button(scorer, width=5)
+        self.team1savemin = Button(scorer, width=WIDTH)
         self.team1savemin["text"] = "-S"
         self.team1savemin["command"] = self.team1ShotsOnDown
         self.team1savemin.grid(row=4, column=3, sticky=S)
         ## Miss Add
-        self.team1missadd = Button(scorer, width=5)
+        self.team1missadd = Button(scorer, width=WIDTH)
         self.team1missadd["text"] = "+M"
         self.team1missadd["command"] = self.team1missesUp
         self.team1missadd.grid(row=5, column=2, sticky=N)
         ## Miss Minus
-        self.team1missmin = Button(scorer, width=5)
+        self.team1missmin = Button(scorer, width=WIDTH)
         self.team1missmin["text"] = "-M"
         self.team1missmin["command"] = self.team1missesDown
         self.team1missmin.grid(row=5, column=3, sticky=N)
         ## Add Minor
-        self.team1addMinor = Button(scorer, width=5, text="+Minor")
+        self.team1addMinor = Button(scorer, width=WIDTH, text="+Minor")
         self.team1addMinor["command"] = self.team1MinorUp
         self.team1addMinor.grid(row=6, column=2)
         ## Sub Minor
-        self.team1subMinor = Button(scorer, width=5, text="-Minor")
+        self.team1subMinor = Button(scorer, width=WIDTH, text="-Minor")
         self.team1subMinor["command"] = self.team1MinorDown
         self.team1subMinor.grid(row=6, column=3)
         ## Add Major
-        self.team1addMajor = Button(scorer, width=5, text="+Major")
+        self.team1addMajor = Button(scorer, width=WIDTH, text="+Major")
         self.team1addMajor["command"] = self.team1MajorUp
         self.team1addMajor.grid(row=7, column=2)
         ## Sub Major
-        self.team1subMajor = Button(scorer, width=5, text="-Major")
+        self.team1subMajor = Button(scorer, width=WIDTH, text="-Major")
         self.team1subMajor["command"] = self.team1MajorDown
         self.team1subMajor.grid(row=7, column=3)
         ## Add Misconduct
-        self.team1addMiscon = Button(scorer, text="+Miscon")
+        self.team1addMiscon = Button(scorer, width=WIDTH, text="+Miscon")
         self.team1addMiscon["command"] = self.team1MisconUp
         self.team1addMiscon.grid(row=8, column=2)
         ## Sub Misconduct
-        self.team1subMiscon = Button(scorer, text="-Miscon")
+        self.team1subMiscon = Button(scorer, width=WIDTH, text="-Miscon")
         self.team1subMiscon["command"] = self.team1MisconDown
         self.team1subMiscon.grid(row=8, column=3)
         ## Add Match
-        self.team1addMatch = Button(scorer, text="+Match")
+        self.team1addMatch = Button(scorer, width=WIDTH, text="+Match")
         self.team1addMatch["command"] = self.team1MatchUp
         self.team1addMatch.grid(row=9, column=2)
         ## Sub Match
-        self.team1subMatch = Button(scorer, text="-Match")
+        self.team1subMatch = Button(scorer, width=WIDTH, text="-Match")
         self.team1subMatch["command"] = self.team1MajorDown
         self.team1subMatch.grid(row=9, column=3)
         ## Add GameMisconduct
-        self.team1addGameMis = Button(scorer, text="+GameMis")
+        self.team1addGameMis = Button(scorer, width=WIDTH, text="+GameMis")
         self.team1addGameMis["command"] = self.team1GameMisUp
         self.team1addGameMis.grid(row=10, column=2)
         ## Sub GameMisconduct
-        self.team1subGameMis = Button(scorer, text="-GameMis")
+        self.team1subGameMis = Button(scorer, width=WIDTH, text="-GameMis")
         self.team1subGameMis["command"] = self.team1GameMisDown
         self.team1subGameMis.grid(row=10, column=3)
 
@@ -302,83 +303,83 @@ class Application(Frame):
         self.combo2.grid(row=1, column=4)
 
         ## Goal Add
-        self.team2goaladd = Button(scorer, width=5)
+        self.team2goaladd = Button(scorer, width=WIDTH)
         self.team2goaladd["text"] = "+G"
         self.team2goaladd["command"] = self.team2goalUp
         self.team2goaladd.grid(row=2, column=5, sticky=S)
         ## Goal Minus
-        self.team2goalmin = Button(scorer, width=5)
+        self.team2goalmin = Button(scorer, width=WIDTH)
         self.team2goalmin["text"] = "-G"
         self.team2goalmin["command"] = self.team2goalDown
         self.team2goalmin.grid(row=2, column=6, sticky=S)
         ## Assist Add
-        self.team2assadd = Button(scorer, width=5)
+        self.team2assadd = Button(scorer, width=WIDTH)
         self.team2assadd["text"] = "+A"
         self.team2assadd["command"] = self.team2assistUp
         self.team2assadd.grid(row=3, column=5, sticky=N)
         ## Assist Minus
-        self.team2assmin = Button(scorer, width=5)
+        self.team2assmin = Button(scorer, width=WIDTH)
         self.team2assmin["text"] = "-A"
         self.team2assmin["command"] = self.team2assistDown
         self.team2assmin.grid(row=3, column=6, sticky=N)
         ## Saves Add
-        self.team2saveadd = Button(scorer, width=5)
+        self.team2saveadd = Button(scorer, width=WIDTH)
         self.team2saveadd["text"] = "+S"
         self.team2saveadd["command"] = self.team2ShotsOnUp
         self.team2saveadd.grid(row=4, column=5, sticky=S)
         ## Saves Minus
-        self.team2savemin = Button(scorer, width=5)
+        self.team2savemin = Button(scorer, width=WIDTH)
         self.team2savemin["text"] = "-S"
         self.team2savemin["command"] = self.team2ShotsOnDown
         self.team2savemin.grid(row=4, column=6, sticky=S)
         ## Miss Add
-        self.team2missadd = Button(scorer, width=5)
+        self.team2missadd = Button(scorer, width=WIDTH)
         self.team2missadd["text"] = "+M"
         self.team2missadd["command"] = self.team2missesUp
         self.team2missadd.grid(row=5, column=5, sticky=N)
         ## Miss Minus
-        self.team2missmin = Button(scorer, width=5)
+        self.team2missmin = Button(scorer, width=WIDTH)
         self.team2missmin["text"] = "-M"
         self.team2missmin["command"] = self.team2missesDown
         self.team2missmin.grid(row=5, column=6, sticky=N)
         ## Add Minor
-        self.team2addMinor = Button(scorer, width=5, text="+Minor")
+        self.team2addMinor = Button(scorer, width=WIDTH, text="+Minor")
         self.team2addMinor["command"] = self.team2MinorUp
         self.team2addMinor.grid(row=6, column=5)
         ## Sub Minor
-        self.team2subMinor = Button(scorer, width=5, text="-Minor")
+        self.team2subMinor = Button(scorer, width=WIDTH, text="-Minor")
         self.team2subMinor["command"] = self.team2MinorDown
         self.team2subMinor.grid(row=6, column=6)
         ## Add Major
-        self.team2addMajor = Button(scorer, width=5, text="+Major")
+        self.team2addMajor = Button(scorer, width=WIDTH, text="+Major")
         self.team2addMajor["command"] = self.team2MajorUp
         self.team2addMajor.grid(row=7, column=5)
         ## Sub Major
-        self.team2subMajor = Button(scorer, width=5, text="-Major")
+        self.team2subMajor = Button(scorer, width=WIDTH, text="-Major")
         self.team2subMajor["command"] = self.team2MajorDown
         self.team2subMajor.grid(row=7, column=6)
         ## Add Misconduct
-        self.team2addMiscon = Button(scorer, text="+Miscon")
+        self.team2addMiscon = Button(scorer, width=WIDTH, text="+Miscon")
         self.team2addMiscon["command"] = self.team2MisconUp
         self.team2addMiscon.grid(row=8, column=5)
         ## Sub Misconduct
-        self.team2subMiscon = Button(scorer, text="-Miscon")
+        self.team2subMiscon = Button(scorer, width=WIDTH, text="-Miscon")
         self.team2subMiscon["command"] = self.team2MisconDown
         self.team2subMiscon.grid(row=8, column=6)
         ## Add Match
-        self.team2addMatch = Button(scorer, text="+Match")
+        self.team2addMatch = Button(scorer, width=WIDTH, text="+Match")
         self.team2addMatch["command"] = self.team2MatchUp
         self.team2addMatch.grid(row=9, column=5)
         ## Sub Match
-        self.team2subMatch = Button(scorer, text="-Match")
+        self.team2subMatch = Button(scorer, width=WIDTH, text="-Match")
         self.team2subMatch["command"] = self.team2MatchDown
         self.team2subMatch.grid(row=9, column=6)
         ## Add GameMisconduct
-        self.team2addGameMis = Button(scorer, text="+GameMis")
+        self.team2addGameMis = Button(scorer, width=WIDTH, text="+GameMis")
         self.team2addGameMis["command"] = self.team2GameMisUp
         self.team2addGameMis.grid(row=10, column=5)
         ## Sub GameMisconduct
-        self.team2subGameMis = Button(scorer, text="-GameMis")
+        self.team2subGameMis = Button(scorer, width=WIDTH, text="-GameMis")
         self.team2subGameMis["command"] = self.team2GameMisDown
         self.team2subGameMis.grid(row=10, column=6)
 
