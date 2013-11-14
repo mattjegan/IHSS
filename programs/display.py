@@ -2,6 +2,7 @@ import pygame
 from pygame.locals import *
 import time
 import sys
+import operator
 import playerClass
 import teamClass
 
@@ -161,6 +162,10 @@ def displayAllTimePlayerStats(screen, teamsAllTime, maxTeamPlayers):
             x += 1
 
             sizeOfText = height - (2*STATPAD)
+
+    ## Sort players by points
+    allPlayers.sort(key=operator.attrgetter('points'))
+    allPlayers.reverse()
 
     ## Write stats
     titleY = TOPPADDINGY - height
