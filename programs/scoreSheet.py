@@ -288,7 +288,15 @@ class Application(Frame):
         self.team1list = Listbox(scorer, height=self.maxTeamPlayers)
         for i in (player.getFullName() for player in self.team1.players):
             self.team1list.insert(END, i)
-        self.team1list.grid(row=2, column=1, rowspan=4, sticky=W+E+N+S)
+        self.team1list.grid(row=2, column=1, rowspan=9, sticky=W+E+N+S)
+
+        ## Create goalie list
+        self.team1goalieLbl = Label(scorer, text="Goalies").grid(row=11, column=1)
+        self.team1goalielist = Listbox(scorer)
+        for i in self.team1.players:
+            if i.isGoalie:
+                self.team1goalielist.insert(END, i.getFullName())
+        self.team1goalielist.grid(row=12, column=1)
 
         ## Team 2 Stuff ##
         self.team2Lab = Label(scorer)
@@ -387,7 +395,15 @@ class Application(Frame):
         self.team2list = Listbox(scorer, height=self.maxTeamPlayers)
         for i in (player.getFullName() for player in self.team2.players):
             self.team2list.insert(END, i)
-        self.team2list.grid(row=2, column=4, rowspan=4, sticky=W+E+N+S)
+        self.team2list.grid(row=2, column=4, rowspan=9, sticky=W+E+N+S)
+
+        ## Create goalie list
+        self.team2goalieLbl = Label(scorer, text="Goalies").grid(row=11, column=4)
+        self.team2goalielist = Listbox(scorer)
+        for i in self.team2.players:
+            if i.isGoalie:
+                self.team2goalielist.insert(END, i.getFullName())
+        self.team2goalielist.grid(row=12, column=4)
 
         ## End Game Button
         self.endGame = Button(self)
@@ -406,6 +422,11 @@ class Application(Frame):
         for i in [player.getFullName() for player in self.team1.players]:
             self.team1list.insert(END, i)
 
+        self.team1goalielist.delete(0, END)
+        for i in self.team1.players:
+            if i.isGoalie:
+                self.team1goalielist.insert(END, i.getFullName())
+
     def _updatecb2(self, evt):
         changedTo = evt.widget.get()
 
@@ -416,6 +437,11 @@ class Application(Frame):
         self.team2list.delete(0, END)
         for i in [player.getFullName() for player in self.team2.players]:
             self.team2list.insert(END, i)
+
+        self.team2goalielist.delete(0, END)
+        for i in self.team2.players:
+            if i.isGoalie:
+                self.team2goalielist.insert(END, i.getFullName())
 
     def team1goalUp(self):
         self.team1score += 1
