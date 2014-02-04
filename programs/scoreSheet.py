@@ -162,6 +162,7 @@ class Application(Frame):
         htmlFile.write("""<table border="1">""")
         htmlFile.write("""<tr>
 <th>Name</th>
+<th>Team</th>
 <th>#</th>
 <th>G</th>
 <th>A</th>
@@ -171,7 +172,7 @@ class Application(Frame):
         ## Write each players stats
         for team in self.teamList:
             for player in team.players:
-                stringToWrite = "<tr><td>" + player.getFullName() + "</td><td>" + str(player.number) + "</td><td>" + str(player.goals) + "</td><td>" + str(player.assists) + "</td><td>" + str(player.goals + player.assists) + "</td></tr>"
+                stringToWrite = "<tr><td>" + player.getFullName() + "</td><td>" + team.teamName + "</td><td>" + str(player.number) + "</td><td>" + str(player.goals) + "</td><td>" + str(player.assists) + "</td><td>" + str(player.goals + player.assists) + "</td></tr>"
                 htmlFile.write(stringToWrite)
 
         htmlFile.close()
