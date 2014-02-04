@@ -155,7 +155,26 @@ class Application(Frame):
         self.saveHTMLTable()
 
     def saveHTMLTable(self):
-        pass
+        htmlFileName = "htmlTables/table" + str(self.gameNumber) + ".html"
+        htmlFile = open(htmlFileName, "w")
+        
+        ## Write html constants for table including headers
+        htmlFile.write("""<table border="1">""")
+        htmlFile.write("""<tr>
+<th>Name</th>
+<th>#</th>
+<th>G</th>
+<th>A</th>
+<th>P</th>
+</tr>""")
+
+        ## Write each players stats
+        for team in self.teamList:
+            for player in team.players:
+                stringToWrite = "<tr><td>" + player.getFullName() + "</td><td>" + str(player.number) + "</td><td>" + str(player.goals) + "</td><td>" + str(player.assists) + "</td><td>" + str(player.goals + player.assists) + "</td></tr>"
+                htmlFile.write(stringToWrite)
+
+        htmlFile.close()
 
     def saveAllTimeData(self):
         ## Save overall player stats
