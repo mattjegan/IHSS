@@ -150,7 +150,7 @@ class Application(Frame):
         dataFile = open("teamData.txt", "w")
         for item in teamData:
             dataFile.write(item + "\n")
-        dataFile.close()
+        dataFile.close()    
 
         self.saveHTMLTable()
 
@@ -169,10 +169,19 @@ class Application(Frame):
 <th>P</th>
 </tr>""")
 
-        ## Write each players stats
+        ## Sort players by points
+        allPlayers = []
         for team in self.teamList:
             for player in team.players:
-                stringToWrite = "<tr><td>" + player.getFullName() + "</td><td>" + team.teamName + "</td><td>" + str(player.number) + "</td><td>" + str(player.goals) + "</td><td>" + str(player.assists) + "</td><td>" + str(player.goals + player.assists) + "</td></tr>"
+                allPlayers.append((player.points, player, team.teamName))
+        allPlayers.sort()
+        allPlayers.reverse()
+
+        ## Write each players stats
+        for tup in allPlayers:
+                player = tup[1]
+                teamName = tup[2]
+                stringToWrite = "<tr><td>" + player.getFullName() + "</td><td>" + teamName + "</td><td>" + str(player.number) + "</td><td>" + str(player.goals) + "</td><td>" + str(player.assists) + "</td><td>" + str(player.points) + "</td></tr>"
                 htmlFile.write(stringToWrite)
 
         htmlFile.close()
@@ -189,6 +198,7 @@ class Application(Frame):
         for item in teamData:
             dataFile.write(item + "\n")
         dataFile.close()
+        
 
     def createWidgets(self):
         WIDTH = 10
