@@ -152,6 +152,11 @@ class Application(Frame):
             dataFile.write(item + "\n")
         dataFile.close()
 
+        self.saveHTMLTable()
+
+    def saveHTMLTable(self):
+        pass
+
     def saveAllTimeData(self):
         ## Save overall player stats
         teamData = []
