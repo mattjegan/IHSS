@@ -152,10 +152,11 @@ class Application(Frame):
             dataFile.write(item + "\n")
         dataFile.close()    
 
-        self.saveHTMLTable()
+        self.saveHTMLTable("htmlTables/table")
+        self.saveHTMLTable("/Users/eganm/Dropbox/testing/table")
 
-    def saveHTMLTable(self):
-        htmlFileName = "htmlTables/table" + str(self.gameNumber) + ".html"
+    def saveHTMLTable(self, loc):
+        htmlFileName = loc + str(self.gameNumber) + ".html"
         htmlFile = open(htmlFileName, "w")
         
         ## Write html constants for table including headers

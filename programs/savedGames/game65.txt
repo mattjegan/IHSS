@@ -1,0 +1,23 @@
+65
+10/2/2014
+12:50
+Referee 1
+Referee 2
+Scorer
+Timekeeper
+
+0v0
+
+Assassins
+-001;Matthew;Egan;80;0;0;0;0;0;0
+ Save Percentage: 0
+-002;Alex;MacKenzie;55;0;0;0;0;0;0
+ Save Percentage: 0
+-007;Nathan;Struck;99;0;0;0;0;0;0
+ Save Percentage: 0
+-008;Tim;Russell;69;0;0;0;0;0;0
+ Save Percentage: 0
+Wolves
+-003;Bob;Bib;33;0;0;0;0;0;0
+ Save Percentage: 0
+
